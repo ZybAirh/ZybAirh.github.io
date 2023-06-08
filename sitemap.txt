@@ -1,2 +1,11 @@
+http://qwd.ai/messageboard/index.html
+http://qwd.ai/about/index.html
+http://qwd.ai/link/index.html
+http://qwd.ai/movies/index.html
+http://qwd.ai/music/index.html
+http://qwd.ai/archives/index.html
+http://qwd.ai/categories/index.html
+http://qwd.ai/tags/index.html
+http://qwd.ai/2023/06/08/python%E9%85%8D%E7%BD%AE/
 http://qwd.ai/2023/06/07/%E7%AE%80%E4%BB%8B/
 http://qwd.ai/

@@ -6,4 +6,159 @@
     <content><![CDATA[<p>我的名字叫阿乐 年龄22岁 家在河南省周口市 未婚 职业是软件开发 每天最晚也会在八点前回家 不抽烟 酒浅尝辄止 晚上十二点上床 保证睡足八个小时 睡前写一篇博客 再做二十分钟俯卧撑暖身 然后再睡觉 基本能熟睡到天亮 像婴儿一样不留下任何疲劳和压力 就这样迎来第二天的早晨 健康检查结果也显示我很正常 我想说明我是一个不论何时都追求内心平稳的人 不拘泥于胜负 不纠结于烦恼 不树立使我夜不能寐的敌人 这就是我在这社会的生活态度</p>
 ]]></content>
   </entry>
+  <entry>
+    <title>python配置</title>
+    <url>/2023/06/08/python%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><h3 id="包管理"><a href="#包管理" class="headerlink" title="包管理"></a>包管理</h3><p>Python导出requirements.txt</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pipreqs . --encoding=utf8 --force</span><br></pre></td></tr></table></figure>
+
+<p>安装依赖</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip install -r requirements.txt</span><br></pre></td></tr></table></figure>
+
+<p>离线安装</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">pip install psutil<span class="literal">-5</span>.<span class="number">6.7</span><span class="literal">-cp38-cp38-win_amd64</span>.whl</span><br></pre></td></tr></table></figure>
+
+<p>手动指定安装源</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">pip install jieba <span class="literal">-i</span> http://mirrors.aliyun.com/pypi/simple <span class="literal">--trusted-host</span> mirrors.aliyun.com</span><br><span class="line">pip install jieba <span class="literal">-i</span> https://pypi.tuna.tsinghua.edu.cn/simple <span class="literal">--trusted-host</span> mirrors.aliyun.com</span><br></pre></td></tr></table></figure>
+
+<p>python安装包指定源并添加信任</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-i http://pypi.douban.com/simple --trusted-host pypi.douban.com</span><br></pre></td></tr></table></figure>
+
+<p>删除依赖</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip uninstall requests</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装旧版本包"><a href="#安装旧版本包" class="headerlink" title="安装旧版本包"></a>安装旧版本包</h3><p>先去官网<a href="https://pypi.org/%E6%89%BE%E5%88%B0%E5%AF%B9%E5%BA%94%E7%9A%84%E5%8C%85%EF%BC%8C%E7%84%B6%E5%90%8E%E9%80%89%E6%8B%A9%E5%8E%86%E5%8F%B2%E7%89%88%E6%9C%AC%E3%80%82">https://pypi.org/找到对应的包，然后选择历史版本。</a></p>
+<p>下载whl文件，使用离线安装。</p>
+<h3 id="打包应用程序"><a href="#打包应用程序" class="headerlink" title="打包应用程序"></a>打包应用程序</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pyinstaller -F -i icon.ico main.py</span><br></pre></td></tr></table></figure>
+
+<h4 id="报错：error-Unable-to-find-vcvarsall-bat"><a href="#报错：error-Unable-to-find-vcvarsall-bat" class="headerlink" title="报错：error: Unable to find vcvarsall.bat"></a>报错：<code>error: Unable to find vcvarsall.bat</code></h4><p>参考<a href="https://www.zhihu.com/question/276234583/answer/1504848753">知乎</a></p>
+<p>如果你用的是 Anaconda，那么安装下 libpython 就能解决</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">conda install -c anaconda libpython</span><br></pre></td></tr></table></figure>
+
+<p>打包脚本</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pyinstaller -F main.py --key ea3FijqE0fUWnn0Hq0Px</span><br><span class="line">del *.c *.spec</span><br><span class="line">rmdir build /Q /S</span><br><span class="line">timeout /nobreak /t 1</span><br><span class="line">cd dist</span><br><span class="line">ren main.exe Annotate_word_files.exe</span><br></pre></td></tr></table></figure>
+
+<h3 id="requests乱码"><a href="#requests乱码" class="headerlink" title="requests乱码"></a>requests乱码</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">response.encoding = response.apparent_encoding</span><br></pre></td></tr></table></figure>
+
+<h2 id="conda"><a href="#conda" class="headerlink" title="conda"></a>conda</h2><h3 id="安装conda"><a href="#安装conda" class="headerlink" title="安装conda"></a>安装conda</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">https://www.anaconda.com/products/distribution</span><br><span class="line"></span><br><span class="line">wget https://repo.anaconda.com/archive/Anaconda3-2022.05-Linux-x86_64.sh</span><br><span class="line">h</span><br><span class="line">wget https://repo.anaconda.com/archive/Anaconda3-2022.10-Linux-x86_64.sh</span><br><span class="line">bash Anaconda3-2022.10-Linux-x86_64.sh</span><br><span class="line">source ~/.bashrc</span><br></pre></td></tr></table></figure>
+
+<h3 id="conda换源"><a href="#conda换源" class="headerlink" title="conda换源"></a>conda换源</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/msys2/</span><br><span class="line">conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge</span><br><span class="line">conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/</span><br><span class="line">conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/</span><br><span class="line">conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/</span><br><span class="line">conda config --set show_channel_urls yes</span><br></pre></td></tr></table></figure>
+
+<p>恢复官方源：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">conda config --remove-key channels</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看安装了哪些包"><a href="#查看安装了哪些包" class="headerlink" title="查看安装了哪些包"></a>查看安装了哪些包</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">conda list</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看当前存在哪些虚拟环境"><a href="#查看当前存在哪些虚拟环境" class="headerlink" title="查看当前存在哪些虚拟环境"></a>查看当前存在哪些虚拟环境</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">conda env list </span><br><span class="line">conda info -e</span><br></pre></td></tr></table></figure>
+
+<h3 id="检查更新当前conda"><a href="#检查更新当前conda" class="headerlink" title="检查更新当前conda"></a>检查更新当前conda</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">conda update conda</span><br></pre></td></tr></table></figure>
+
+<h3 id="Python创建虚拟环境"><a href="#Python创建虚拟环境" class="headerlink" title="Python创建虚拟环境"></a>Python创建虚拟环境</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">conda create -n m python=3.9</span><br><span class="line">anaconda命令创建python版本为x.x，名字为your_env_name的虚拟环境。your_env_name文件可以在Anaconda安装目录envs文件下找到。</span><br></pre></td></tr></table></figure>
+
+<p>实例</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">conda create -n dhdf python=3.9</span><br></pre></td></tr></table></figure>
+
+<p>导出环境为配置文件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">conda env export &gt; environment.yaml </span><br></pre></td></tr></table></figure>
+
+<p>加载配置文件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">conda env create -f environment.yaml</span><br></pre></td></tr></table></figure>
+
+<h3 id="激活或者切换虚拟环境"><a href="#激活或者切换虚拟环境" class="headerlink" title="激活或者切换虚拟环境"></a>激活或者切换虚拟环境</h3><p>打开命令行，输入python –version检查当前 python 版本。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Linux: source activate your_env_nam</span><br><span class="line">Windows: conda activate your_env_name</span><br></pre></td></tr></table></figure>
+
+<h4 id="切换失败："><a href="#切换失败：" class="headerlink" title="切换失败："></a>切换失败：</h4><p>若命令行首部不显示当前虚拟环境名称，正常的应形如<code>(base) PS C:\Users\Administrator&gt;</code>。</p>
+<p>执行命令</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">conda init powershell</span><br></pre></td></tr></table></figure>
+
+<p>关闭后重新打开powershell，若在命令⾏最前⾯出现“（base）”，则成功，可输⼊conda activate envs_name 命令测试。</p>
+<p>否则，若出现红⾊如下警告提⽰：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">⽆法加载⽂件C:\XXX\WindowsPowerShell\profile.ps1，因为在此系统上禁⽌运⾏脚本</span><br></pre></td></tr></table></figure>
+
+<p>执⾏命令：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="built_in">get-ExecutionPolicy</span></span><br></pre></td></tr></table></figure>
+
+<p>若回复 Restricted，表⽰状态是禁⽌的。</p>
+<p>执⾏命令：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="built_in">set-ExecutionPolicy</span> RemoteSigned</span><br></pre></td></tr></table></figure>
+
+<p>将出现如下⼏个选项，输⼊ Y 并回车，设置完毕。</p>
+<p>重新打开powershell，即可看到命令⾏开头有“（base）”，输⼊conda activate envs_name 命令即可激活相应的虚拟环境。</p>
+<h3 id="关闭虚拟环境-即从当前环境退出返回使用PATH环境中的默认python版本"><a href="#关闭虚拟环境-即从当前环境退出返回使用PATH环境中的默认python版本" class="headerlink" title="关闭虚拟环境(即从当前环境退出返回使用PATH环境中的默认python版本)"></a>关闭虚拟环境(即从当前环境退出返回使用PATH环境中的默认python版本)</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">deactivate env_name</span><br><span class="line">或者`activate root`切回root环境</span><br><span class="line">Linux下：source deactivate </span><br></pre></td></tr></table></figure>
+
+<h3 id="删除虚拟环境"><a href="#删除虚拟环境" class="headerlink" title="删除虚拟环境"></a>删除虚拟环境</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">conda remove -n novelai --all -y</span><br></pre></td></tr></table></figure>
+
+<p>实例：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">conda remove -n exe --all -y</span><br></pre></td></tr></table></figure>
+
+<h3 id="备份和恢复虚拟环境"><a href="#备份和恢复虚拟环境" class="headerlink" title="备份和恢复虚拟环境"></a>备份和恢复虚拟环境</h3><p>备份：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">conda activate mlagents</span><br><span class="line">conda-env export &gt; mlagents.yml</span><br><span class="line">conda deactivate</span><br><span class="line">conda remove -n torch --all -y</span><br></pre></td></tr></table></figure>
+
+<p>恢复：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">conda env create -f mlagents.yml</span><br></pre></td></tr></table></figure>
+
+<h3 id="Python换源"><a href="#Python换源" class="headerlink" title="Python换源"></a>Python换源</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></table></figure>
+
+<p>国内源列表：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">清华：https://pypi.tuna.tsinghua.edu.cn/simple</span><br><span class="line">阿里云：http://mirrors.aliyun.com/pypi/simple/</span><br><span class="line">中国科技大学 https://pypi.mirrors.ustc.edu.cn/simple/</span><br><span class="line">华中理工大学：http://pypi.hustunique.com/</span><br><span class="line">山东理工大学：http://pypi.sdutlinux.org/ </span><br><span class="line">豆瓣：http://pypi.douban.com/simple/</span><br><span class="line"></span><br><span class="line">官方：</span><br><span class="line">https://pypi.org/simple/</span><br><span class="line">https://pypi.python.org/pypi</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装对应CUDA版本的pytorch"><a href="#安装对应CUDA版本的pytorch" class="headerlink" title="安装对应CUDA版本的pytorch"></a>安装对应CUDA版本的pytorch</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看CUDA版本</span></span><br><span class="line">nvcc --version</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">或者</span></span><br><span class="line">nvidia-smi</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">（nvidia-smi -L 显示显卡型号）</span></span><br><span class="line"></span><br><span class="line">pip install --pre torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/nightly/cu117</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">或者</span></span><br><span class="line">conda install pytorch torchvision torchaudio pytorch-cuda=11.7 -c pytorch-nightly -c nvidia</span><br></pre></td></tr></table></figure>
+
+<h3 id="conda安装库的时候报错"><a href="#conda安装库的时候报错" class="headerlink" title="conda安装库的时候报错"></a>conda安装库的时候报错</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CondaVerificationError: The package for scipy located at /home/lxf/.conda/pkgs/scipy-1.3.1-py37h921218d_1</span><br><span class="line">appears to be corrupted. The path &#x27;lib/python3.7/site-packages/scipy/stats/_continuous_distns.py&#x27;</span><br><span class="line">specified in the package manifest cannot be found.</span><br></pre></td></tr></table></figure>
+
+<p>解决：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">conda clean --packages --tarballs</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装GYM"><a href="#安装GYM" class="headerlink" title="安装GYM"></a>安装GYM</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip uninstall gym</span><br><span class="line">pip install gym==0.13</span><br><span class="line">pip install gym[atari]</span><br><span class="line">python -m atari_py.import_roms C:/E/fast_access/Roms</span><br><span class="line">pip install gym[accept-rom-license]</span><br></pre></td></tr></table></figure>
+
+<h3 id="conda清理空间"><a href="#conda清理空间" class="headerlink" title="conda清理空间"></a>conda清理空间</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line">conda clean -p      <span class="comment">//删除没有用的包（推荐）</span></span><br><span class="line">conda clean -t      <span class="comment">//tar打包</span></span><br><span class="line">conda clean -y --all <span class="comment">//删除全部的安装包及cache</span></span><br></pre></td></tr></table></figure>
+
+<p>pip清理：</p>
+<p>进入<code>%LocalAppData%\pip\Cache</code>，删除全部内容。</p>
+<h2 id="检测Pytorch是否可以连接CUDA"><a href="#检测Pytorch是否可以连接CUDA" class="headerlink" title="检测Pytorch是否可以连接CUDA"></a>检测Pytorch是否可以连接CUDA</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;CUDA版本:&#x27;</span>, torch.version.cuda)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Pytorch版本:&#x27;</span>, torch.__version__)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;显卡是否可用:&#x27;</span>, <span class="string">&#x27;可用&#x27;</span> <span class="keyword">if</span> (torch.cuda.is_available()) <span class="keyword">else</span> <span class="string">&#x27;不可用&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;显卡数量:&#x27;</span>, torch.cuda.device_count())</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;是否支持BF16数字格式:&#x27;</span>, <span class="string">&#x27;支持&#x27;</span> <span class="keyword">if</span> (torch.cuda.is_bf16_supported()) <span class="keyword">else</span> <span class="string">&#x27;不支持&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;当前显卡型号:&#x27;</span>, torch.cuda.get_device_name())</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;当前显卡的CUDA算力:&#x27;</span>, torch.cuda.get_device_capability())</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装ipykernel"><a href="#安装ipykernel" class="headerlink" title="安装ipykernel"></a>安装ipykernel</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">conda install -n t ipykernel --update-deps --force-reinstall</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装python"><a href="#安装python" class="headerlink" title="安装python"></a>安装python</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">wget http://npm.taobao.org/mirrors/python/3.9.0/Python-3.9.0.tgz</span><br><span class="line">或者https://www.python.org/ftp/python/3.8.1/Python-3.8.1.tgz</span><br><span class="line">tar -zxvf Python-3.9.0.tgz</span><br><span class="line">cd Python-3.9.0</span><br><span class="line">./configure --with-ssl --prefix=/usr/local/python-3.9.0</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br><span class="line"></span><br><span class="line">// 创建软连接</span><br><span class="line">sudo ln -s /usr/local/python-3.9.0/bin/python3 /usr/bin/python39</span><br><span class="line">sudo ln -s /usr/local/python-3.9.0/bin/pip3 /usr/bin/pip39</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">配置环境变量</span></span><br><span class="line">sudo vim ~/.bash_profile</span><br><span class="line">或者</span><br><span class="line">sudo vim ~/.zsh_profile</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">添加一行：</span></span><br><span class="line">export PATH=$&#123;PATH&#125;:/usr/local/python-3.9.0/bin</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">退出vim，执行以下命令</span></span><br><span class="line">source ~/.bash_profile</span><br><span class="line">或</span><br><span class="line">source ~/.zsh_profile</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo rm /usr/bin/python39 //删除软连接</span><br></pre></td></tr></table></figure>
+
+<h3 id="ModuleNotFoundError-No-module-named-‘-ctypes’的解决方案"><a href="#ModuleNotFoundError-No-module-named-‘-ctypes’的解决方案" class="headerlink" title="ModuleNotFoundError: No module named ‘_ctypes’的解决方案"></a>ModuleNotFoundError: No module named ‘_ctypes’的解决方案</h3><p>安装外部函数库(libffi)</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">yum install libffi-devel -y</span><br></pre></td></tr></table></figure>
+
+<p>重新安装python</p>
+<h3 id="问题解决：-pip-is-configured-with-locations-that-require-TLS-x2F-SSL-however-the-ssl-module-in-Python-is-not…"><a href="#问题解决：-pip-is-configured-with-locations-that-require-TLS-x2F-SSL-however-the-ssl-module-in-Python-is-not…" class="headerlink" title="问题解决： pip is configured with locations that require TLS&#x2F;SSL, however the ssl module in Python is not…"></a>问题解决： pip is configured with locations that require TLS&#x2F;SSL, however the ssl module in Python is not…</h3><p>查看openssl安装包，发现缺少openssl-devel包  </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# rpm -aq|grep openssl </span><br><span class="line">openssl-0.9.8e-20.el5 </span><br><span class="line">openssl-0.9.8e-20.el5 </span><br><span class="line">[root@localhost ~]#</span><br></pre></td></tr></table></figure>
+
+<p>yum安装openssl-devel </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# yum install openssl-devel -y </span><br></pre></td></tr></table></figure>
+
+<p>查看安装结果 </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# rpm -aq|grep openssl </span><br><span class="line">openssl-0.9.8e-26.el5_9.1 </span><br><span class="line">openssl-0.9.8e-26.el5_9.1 </span><br><span class="line">openssl-devel-0.9.8e-26.el5_9.1 </span><br><span class="line">openssl-devel-0.9.8e-26.el5_9.1</span><br></pre></td></tr></table></figure>
+
+<p>重新对python进行编译安装</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo <span class="built_in">cp</span> /usr/lib64/python2.7/lib-dynload/_sqlite3.so /usr/local/python-3.9.8/lib/python3.9/lib-dynload/</span><br></pre></td></tr></table></figure>
+
+<h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><h3 id="可变长度参数"><a href="#可变长度参数" class="headerlink" title="可变长度参数"></a>可变长度参数</h3><p>有<code>def func(*p)</code>和<code>def func(**p)</code>两种形式，前者可以接收任意多个位置参数并放入元组p中，后者可以接收任意多个关键参数并放入字典p中，元组或字典中元素数量取决于实参的数量。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">f</span>(<span class="params">*p</span>):</span><br><span class="line">    <span class="built_in">print</span>(p)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">g</span>(<span class="params">**p</span>):</span><br><span class="line">    <span class="built_in">print</span>(p)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">f(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">g(a=<span class="number">1</span>, b=<span class="number">2</span>, c=<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">out:</span><br><span class="line">(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">&#123;<span class="string">&#x27;a&#x27;</span>: <span class="number">1</span>, <span class="string">&#x27;b&#x27;</span>: <span class="number">2</span>, <span class="string">&#x27;c&#x27;</span>: <span class="number">3</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="闭包作用域（enclosing-scope）"><a href="#闭包作用域（enclosing-scope）" class="headerlink" title="闭包作用域（enclosing scope）"></a>闭包作用域（enclosing scope）</h3><p>在Python中允许嵌套定义函数，也就是一个函数的定义中可以再定义函数。在内层函数中可以直接使用父函数中局部变量的值，但是如果要在内层函数中修改父函数中局部变量的值，必须使用关键字<code>nonlocal</code>声明该变量绑定到距离最近的父函数中已经存在的局部变量。</p>
+<h3 id="星号表达式（star-expression）"><a href="#星号表达式（star-expression）" class="headerlink" title="星号表达式（star expression）"></a>星号表达式（star expression）</h3><p><em>也属于序列解包的用法，在可迭代对象前面加一个星号表示把其中的元素都取出来，常见于把可迭代对象中的全部元素作为函数的位置参数的场合，例如print(</em>‘abc’)。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(*<span class="string">&#x27;abc&#x27;</span>, sep=<span class="string">&#x27;-&#x27;</span>, end=<span class="string">&#x27;\n&#x27;</span>, flush=<span class="literal">True</span>, file=<span class="built_in">open</span>(<span class="string">&#x27;in.txt&#x27;</span>, <span class="string">&#x27;w&#x27;</span>))</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">f</span>(<span class="params">*x</span>):</span><br><span class="line">    <span class="built_in">print</span>(x)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">f(*<span class="string">&#x27;abc&#x27;</span>)</span><br><span class="line"></span><br><span class="line">out:</span><br><span class="line">a-b-c</span><br><span class="line">(<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="好用的库"><a href="#好用的库" class="headerlink" title="好用的库"></a>好用的库</h2><h3 id="loguru"><a href="#loguru" class="headerlink" title="loguru"></a>loguru</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> loguru <span class="keyword">import</span> logger</span><br><span class="line"></span><br><span class="line">logger.debug(<span class="string">&#x27;这是一条debug测试信息&#x27;</span>)</span><br><span class="line">logger.info(<span class="string">&#x27;这是一条info测试信息&#x27;</span>)</span><br><span class="line">logger.warning(<span class="string">&#x27;这是一条warning测试信息&#x27;</span>)</span><br><span class="line">logger.error(<span class="string">&#x27;这是一条error测试信息&#x27;</span>)</span><br><span class="line"></span><br><span class="line"> 日志输入到文件   </span><br><span class="line"><span class="keyword">from</span> loguru <span class="keyword">import</span> logger   </span><br><span class="line">logger.add(<span class="string">&#x27;runlog.log&#x27;</span>.encoding=<span class="string">&#x27;utf-8&#x27;</span>)   </span><br><span class="line">logger.debug(<span class="string">&#x27;这是一条debug测试信息&#x27;</span>)   </span><br><span class="line">logger.info(<span class="string">&#x27;这是一条info测试信息&#x27;</span>)   </span><br><span class="line">logger.warning(<span class="string">&#x27;这是一条warning测试信息&#x27;</span>)   </span><br><span class="line">logger.error(<span class="string">&#x27;这是一条error测试信息&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Python调用C"><a href="#Python调用C" class="headerlink" title="Python调用C++"></a>Python调用C++</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TestLib</span> &#123;</span><br><span class="line">   <span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">display</span><span class="params">()</span> </span>&#123; cout &lt;&lt; <span class="string">&quot;First display&quot;</span> &lt;&lt; endl; &#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">display</span><span class="params">(<span class="type">int</span> a)</span> </span>&#123; cout &lt;&lt; <span class="string">&quot;Second display:&quot;</span> &lt;&lt; a &lt;&lt; endl; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> &#123;</span><br><span class="line">TestLib obj;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">display</span><span class="params">()</span> </span>&#123; obj.<span class="built_in">display</span>(); &#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">display_int</span><span class="params">(<span class="type">int</span> a)</span> </span>&#123; obj.<span class="built_in">display</span>(a); &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">g++ -o openMPClass.so -shared -fPIC openMPClass.cpp</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> ctypes</span><br><span class="line">dll = ctypes.cdll.LoadLibrary</span><br><span class="line">lib = dll(<span class="string">&#x27;./libpycallcpp.so&#x27;</span>)</span><br><span class="line">lib.display()</span><br><span class="line">lib.display_int(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">ERROR: Could <span class="keyword">not</span> find a version that satisfies the requirement scikit-image (<span class="keyword">from</span> torchvideotransforms) (<span class="keyword">from</span> versions: none)</span><br><span class="line">ERROR: No matching distribution found <span class="keyword">for</span> scikit-image</span><br></pre></td></tr></table></figure>
+
+<h2 id="错误解决"><a href="#错误解决" class="headerlink" title="错误解决"></a>错误解决</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">If this call came from a _pb2.py file, your generated code is out of date and must be regenerated with protoc &gt;= 3.19.0.</span><br><span class="line">If you cannot immediately regenerate your protos, some other possible workarounds are:</span><br><span class="line"> 1. Downgrade the protobuf package to 3.20.x or lower.</span><br><span class="line"> 2. Set PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python (but this will use pure-Python parsing and will be much slower).</span><br><span class="line"></span><br><span class="line">More information: https://developers.google.com/protocol-buffers/docs/news/2022-05-06#python-updates</span><br></pre></td></tr></table></figure>
+
+<p>解决方法：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip uninstall tensorboard -y</span><br><span class="line">pip install tensorboard==1.15</span><br><span class="line">pip install protobuf==3.19.0</span><br><span class="line">pip uninstall pillow -y</span><br><span class="line">pip install pillow</span><br><span class="line"></span><br><span class="line">conda uninstall pillow -y</span><br><span class="line">conda install pillow </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+]]></content>
+  </entry>
 </search>

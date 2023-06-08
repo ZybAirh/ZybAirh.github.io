@@ -2,6 +2,87 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://qwd.ai/messageboard/index.html</loc>
+    
+    <lastmod>2023-06-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://qwd.ai/about/index.html</loc>
+    
+    <lastmod>2023-06-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://qwd.ai/link/index.html</loc>
+    
+    <lastmod>2023-06-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://qwd.ai/movies/index.html</loc>
+    
+    <lastmod>2023-06-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://qwd.ai/music/index.html</loc>
+    
+    <lastmod>2023-06-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://qwd.ai/archives/index.html</loc>
+    
+    <lastmod>2023-06-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://qwd.ai/categories/index.html</loc>
+    
+    <lastmod>2023-06-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://qwd.ai/tags/index.html</loc>
+    
+    <lastmod>2023-06-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://qwd.ai/2023/06/08/python%E9%85%8D%E7%BD%AE/</loc>
+    
+    <lastmod>2023-06-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://qwd.ai/2023/06/07/%E7%AE%80%E4%BB%8B/</loc>
     
     <lastmod>2023-06-07</lastmod>
