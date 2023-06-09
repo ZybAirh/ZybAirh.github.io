@@ -1,0 +1,189 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>M1 Pro 安卓模拟器+Xposed环境 | Zyb'Blog</title><meta name="author" content="Nohup"><meta name="copyright" content="Nohup"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="吐槽最近换了台mac，发现mac对程序员真的太友好了，一些环境配置起来很方便，借助brew几乎都是一行命令的事。但是有一些环境还不是那么好配，在这做一下记录。这次要说的是安卓模拟器我本人是有一台Google Pixel真机的，插上数据线也能很顺利的进行adb调试，但是就是安装apk的时候老是卡死，这我可受不了，直接就开始研究怎么解决。 正文 首先是比较熟悉的那些模拟器平台，例如夜神模拟器，雷">
+<meta property="og:type" content="article">
+<meta property="og:title" content="M1 Pro 安卓模拟器+Xposed环境">
+<meta property="og:url" content="http://qwd.ai/2023/06/08/M1%20Pro%20%E5%AE%89%E5%8D%93%E6%A8%A1%E6%8B%9F%E5%99%A8+Xposed%E7%8E%AF%E5%A2%83/index.html">
+<meta property="og:site_name" content="Zyb&#39;Blog">
+<meta property="og:description" content="吐槽最近换了台mac，发现mac对程序员真的太友好了，一些环境配置起来很方便，借助brew几乎都是一行命令的事。但是有一些环境还不是那么好配，在这做一下记录。这次要说的是安卓模拟器我本人是有一台Google Pixel真机的，插上数据线也能很顺利的进行adb调试，但是就是安装apk的时候老是卡死，这我可受不了，直接就开始研究怎么解决。 正文 首先是比较熟悉的那些模拟器平台，例如夜神模拟器，雷">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://qwd.ai/img/self.png">
+<meta property="article:published_time" content="2023-06-08T11:07:44.000Z">
+<meta property="article:modified_time" content="2023-06-08T11:16:30.604Z">
+<meta property="article:author" content="Nohup">
+<meta property="article:tag" content="刷机">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://qwd.ai/img/self.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://qwd.ai/2023/06/08/M1%20Pro%20%E5%AE%89%E5%8D%93%E6%A8%A1%E6%8B%9F%E5%99%A8+Xposed%E7%8E%AF%E5%A2%83/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":200,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'M1 Pro 安卓模拟器+Xposed环境',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-06-08 19:16:30'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Zyb'Blog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/self.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 图库</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tuku/"><i class="fa-fw fas fa-heart"></i><span> 其他</span></a></li><li><a class="site-page child" href="/girls/"><i class="fa-fw fas fa-heart"></i><span> 美女</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/bj.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Zyb'Blog"><img class="site-icon" src="/img/bk.png"/><span class="site-name">Zyb'Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 娱乐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 图库</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tuku/"><i class="fa-fw fas fa-heart"></i><span> 其他</span></a></li><li><a class="site-page child" href="/girls/"><i class="fa-fw fas fa-heart"></i><span> 美女</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">M1 Pro 安卓模拟器+Xposed环境</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-06-08T11:07:44.000Z" title="发表于 2023-06-08 19:07:44">2023-06-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-06-08T11:16:30.604Z" title="更新于 2023-06-08 19:16:30">2023-06-08</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="M1 Pro 安卓模拟器+Xposed环境"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><meta name="referrer" content="no-referrer"/>
+
+
+<h2 id="吐槽"><a href="#吐槽" class="headerlink" title="吐槽"></a>吐槽</h2><p>最近换了台mac，发现mac对程序员真的太友好了，一些环境配置起来很方便，借助brew几乎都是一行命令的事。<br>但是有一些环境还不是那么好配，在这做一下记录。<br>这次要说的是安卓模拟器<br>我本人是有一台Google Pixel真机的，插上数据线也能很顺利的进行adb调试，但是就是安装apk的时候老是卡死，这我可受不了，直接就开始研究怎么解决。</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><ol>
+<li>首先是比较熟悉的那些模拟器平台，例如夜神模拟器，雷电模拟器，我试了，没有成功，直接pass掉，可能英特尔系列mac的可以吧。	</li>
+<li>然后就是最近一个开源项目，开箱即用的<br> <img src="https://img-blog.csdnimg.cn/8f69a4a87e3b4d0d8ac3c1eed3277e4e.png" alt="在这里插入图片描述"><br>这里放上链接<br><a target="_blank" rel="noopener" href="https://github.com/google/android-emulator-m1-preview">https://github.com/google/android-emulator-m1-preview</a><br>下载dmg文件双击安装就完事了，很方便。<br><img src="https://img-blog.csdnimg.cn/9d0f559a935d4fc7b419f1c7f5cff499.png" alt="在这里插入图片描述"></li>
+</ol>
+<p>打开是这样的，自带root用户，做一些调试还是可以的，但是我不知道怎么刷入面具，进不去recovery模式，可能还不支持吧。<br>整体来说是可以用的，想省事的话直接用这个就ok了。</p>
+<ol start="3">
+<li>假如想制定一些系统版本的话，就要用这种方式了，下载Android Studio<br>安装sdk</li>
+</ol>
+<p><img src="https://img-blog.csdnimg.cn/4e79d22709a740dda7ce390b7d67c7eb.png"><br><img src="https://img-blog.csdnimg.cn/8ea9fa92604f4cd7b2f9171751d71b2b.png" alt="在这里插入图片描述"><br>然后比较关键的一点来了，这个Emulator比较坑，新版的跟老版本的不太一样，设置环境变量的时候要把</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~/Library/Android/sdk/emulator</span><br></pre></td></tr></table></figure>
+<p>放入环境变量。</p>
+<p>然后就是创建模拟器<img src="https://img-blog.csdnimg.cn/dcd4877f71a4452695e41d5c766d87b9.png" alt="在这里插入图片描述"></p>
+<p>这里随便选<br><img src="https://img-blog.csdnimg.cn/50b061fc93d2493588a4eca0dc7cb420.png" alt="在这里插入图片描述"></p>
+<p>这里就是选一些系统版本<br><img src="https://img-blog.csdnimg.cn/369e947f633943569a74ae9927120371.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/3bd4360aa6aa4b1cbf1caaac45bc81f6.png" alt="在这里插入图片描述"><br>然后点Finish创建就行了</p>
+<p>完事之后需要记住两个命令<br>第一个是查看模拟器列表的<br>emulator -list-avds<br><img src="https://img-blog.csdnimg.cn/6ff247322e684ae484918e259130e546.png" alt="在这里插入图片描述"><br>第二个是启动模拟器的</p>
+<p>emulator -avd  Pixel_6_Pro_API_24 -writable-system<br><img src="https://img-blog.csdnimg.cn/123c1890779a4858a197ff2e94ba5aae.png" alt="在这里插入图片描述"><br>然后你就能创建一个很逼真的模拟器，也是有最高权限<br>我在这装了个xposed环境，接下来就是愉快的做一些开发了，正向逆向都很方便</p>
+<p><img src="https://img-blog.csdnimg.cn/25b4b1db1cf045c4b493d0391b51fc88.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/8945bb72cf504e57bdb6abdce53f3cbb.png" alt="在这里插入图片描述"></p>
+<p>提醒下这个xposed只能离线刷，网上下载一个符合系统版本的xposed包刷一下就完事了～</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://qwd.ai">Nohup</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://qwd.ai/2023/06/08/M1%20Pro%20%E5%AE%89%E5%8D%93%E6%A8%A1%E6%8B%9F%E5%99%A8+Xposed%E7%8E%AF%E5%A2%83/">http://qwd.ai/2023/06/08/M1%20Pro%20%E5%AE%89%E5%8D%93%E6%A8%A1%E6%8B%9F%E5%99%A8+Xposed%E7%8E%AF%E5%A2%83/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://qwd.ai" target="_blank">Zyb'Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%88%B7%E6%9C%BA/">刷机</a></div><div class="post_share"><div class="social-share" data-image="/img/self.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/06/08/Zyb%E9%81%87%E5%9D%91%E8%AE%B0%E5%BD%95/" title="Zyb遇坑记录"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Zyb遇坑记录</div></div></a></div><div class="next-post pull-right"><a href="/2023/06/08/%E5%AE%89%E8%A3%85%E5%85%A8%E5%B1%80%E6%A8%A1%E5%9D%97%E4%BB%8D%E7%84%B6%E6%8F%90%E7%A4%BA%E6%89%BE%E4%B8%8D%E5%88%B0%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E5%BC%8F/" title="安装全局模块仍然提示找不到的解决方式"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">安装全局模块仍然提示找不到的解决方式</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/self.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Nohup</div><div class="author-info__description">这个故事，还没有完结</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/ZybAirh" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%90%E6%A7%BD"><span class="toc-number">1.</span> <span class="toc-text">吐槽</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-number">2.</span> <span class="toc-text">正文</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/06/08/%E5%AE%89%E5%8D%93%E4%B8%8B-mount-%E2%80%98-system%E2%80%98-not-in-proc-mounts/" title="安卓下 mount ‘/system‘ not in /proc/mounts">安卓下 mount ‘/system‘ not in /proc/mounts</a><time datetime="2023-06-08T11:14:51.000Z" title="发表于 2023-06-08 19:14:51">2023-06-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/06/08/Python3%E5%88%9B%E5%BB%BA%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/" title="Python3创建虚拟环境">Python3创建虚拟环境</a><time datetime="2023-06-08T11:14:04.000Z" title="发表于 2023-06-08 19:14:04">2023-06-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/06/08/Jieba%E6%8C%89%E8%AF%8D%E6%80%A7%E5%88%86%E8%AF%8D/" title="Jieba按词性分词">Jieba按词性分词</a><time datetime="2023-06-08T11:12:31.000Z" title="发表于 2023-06-08 19:12:31">2023-06-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/06/08/%E5%A6%82%E4%BD%95%E6%8A%8A%E4%B8%8D%E5%90%8C%E7%9A%84%E6%97%A5%E5%BF%97%E5%86%99%E5%85%A5%E4%B8%8D%E5%90%8C%E7%9A%84%E6%96%87%E4%BB%B6%E4%B8%AD/" title="loguru 如何把不同的日志写入不同的文件中">loguru 如何把不同的日志写入不同的文件中</a><time datetime="2023-06-08T11:09:42.000Z" title="发表于 2023-06-08 19:09:42">2023-06-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/06/08/Python%E8%AF%86%E5%88%AB%E6%BB%91%E5%9D%97%E7%BC%BA%E5%8F%A3/" title="Python识别滑块缺口">Python识别滑块缺口</a><time datetime="2023-06-08T11:09:15.000Z" title="发表于 2023-06-08 19:09:15">2023-06-08</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 By Nohup</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><div class="aplayer no-destroy" data-id="7422861869" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="true" data-lrcType="-1"> </div><div class="aplayer no-destroy" data-id="60198" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="true"> </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

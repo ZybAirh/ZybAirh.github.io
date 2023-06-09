@@ -1,9 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Jieba按词性分词</title>
+    <url>/2023/06/08/Jieba%E6%8C%89%E8%AF%8D%E6%80%A7%E5%88%86%E8%AF%8D/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><meta name="referrer" content="no-referrer"/>
+
+
+<h2 id="去标点符号"><a href="#去标点符号" class="headerlink" title="去标点符号"></a>去标点符号</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">new = re.sub(<span class="string">r&#x27;[^\u4e00-\u9fa5]&#x27;</span>, <span class="string">&#x27;&#x27;</span>, old)</span><br></pre></td></tr></table></figure>
+<h2 id="分词"><a href="#分词" class="headerlink" title="分词"></a>分词</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> jieba.posseg <span class="keyword">as</span> jp</span><br><span class="line">posseg = jp.cut(text)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> posseg:</span><br><span class="line">	dic = &#123;<span class="string">&#x27;word&#x27;</span>: i.word, <span class="string">&#x27;flag&#x27;</span>: i.flag&#125; <span class="comment"># flag 是词性</span></span><br></pre></td></tr></table></figure>
+<h2 id="词性"><a href="#词性" class="headerlink" title="词性"></a>词性</h2><p><img src="https://img-blog.csdnimg.cn/6a67e059b17d46c7be61c70661598fe2.png" alt="在这里插入图片描述"></p>
+]]></content>
+      <tags>
+        <tag>自然语言处理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>M1 Pro 安卓模拟器+Xposed环境</title>
+    <url>/2023/06/08/M1%20Pro%20%E5%AE%89%E5%8D%93%E6%A8%A1%E6%8B%9F%E5%99%A8+Xposed%E7%8E%AF%E5%A2%83/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><meta name="referrer" content="no-referrer"/>
+
+
+<h2 id="吐槽"><a href="#吐槽" class="headerlink" title="吐槽"></a>吐槽</h2><p>最近换了台mac，发现mac对程序员真的太友好了，一些环境配置起来很方便，借助brew几乎都是一行命令的事。<br>但是有一些环境还不是那么好配，在这做一下记录。<br>这次要说的是安卓模拟器<br>我本人是有一台Google Pixel真机的，插上数据线也能很顺利的进行adb调试，但是就是安装apk的时候老是卡死，这我可受不了，直接就开始研究怎么解决。</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><ol>
+<li>首先是比较熟悉的那些模拟器平台，例如夜神模拟器，雷电模拟器，我试了，没有成功，直接pass掉，可能英特尔系列mac的可以吧。	</li>
+<li>然后就是最近一个开源项目，开箱即用的<br> <img src="https://img-blog.csdnimg.cn/8f69a4a87e3b4d0d8ac3c1eed3277e4e.png" alt="在这里插入图片描述"><br>这里放上链接<br><a href="https://github.com/google/android-emulator-m1-preview">https://github.com/google/android-emulator-m1-preview</a><br>下载dmg文件双击安装就完事了，很方便。<br><img src="https://img-blog.csdnimg.cn/9d0f559a935d4fc7b419f1c7f5cff499.png" alt="在这里插入图片描述"></li>
+</ol>
+<p>打开是这样的，自带root用户，做一些调试还是可以的，但是我不知道怎么刷入面具，进不去recovery模式，可能还不支持吧。<br>整体来说是可以用的，想省事的话直接用这个就ok了。</p>
+<ol start="3">
+<li>假如想制定一些系统版本的话，就要用这种方式了，下载Android Studio<br>安装sdk</li>
+</ol>
+<p><img src="https://img-blog.csdnimg.cn/4e79d22709a740dda7ce390b7d67c7eb.png"><br><img src="https://img-blog.csdnimg.cn/8ea9fa92604f4cd7b2f9171751d71b2b.png" alt="在这里插入图片描述"><br>然后比较关键的一点来了，这个Emulator比较坑，新版的跟老版本的不太一样，设置环境变量的时候要把</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">~/Library/Android/sdk/emulator</span><br></pre></td></tr></table></figure>
+<p>放入环境变量。</p>
+<p>然后就是创建模拟器<img src="https://img-blog.csdnimg.cn/dcd4877f71a4452695e41d5c766d87b9.png" alt="在这里插入图片描述"></p>
+<p>这里随便选<br><img src="https://img-blog.csdnimg.cn/50b061fc93d2493588a4eca0dc7cb420.png" alt="在这里插入图片描述"></p>
+<p>这里就是选一些系统版本<br><img src="https://img-blog.csdnimg.cn/369e947f633943569a74ae9927120371.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/3bd4360aa6aa4b1cbf1caaac45bc81f6.png" alt="在这里插入图片描述"><br>然后点Finish创建就行了</p>
+<p>完事之后需要记住两个命令<br>第一个是查看模拟器列表的<br>emulator -list-avds<br><img src="https://img-blog.csdnimg.cn/6ff247322e684ae484918e259130e546.png" alt="在这里插入图片描述"><br>第二个是启动模拟器的</p>
+<p>emulator -avd  Pixel_6_Pro_API_24 -writable-system<br><img src="https://img-blog.csdnimg.cn/123c1890779a4858a197ff2e94ba5aae.png" alt="在这里插入图片描述"><br>然后你就能创建一个很逼真的模拟器，也是有最高权限<br>我在这装了个xposed环境，接下来就是愉快的做一些开发了，正向逆向都很方便</p>
+<p><img src="https://img-blog.csdnimg.cn/25b4b1db1cf045c4b493d0391b51fc88.png" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/8945bb72cf504e57bdb6abdce53f3cbb.png" alt="在这里插入图片描述"></p>
+<p>提醒下这个xposed只能离线刷，网上下载一个符合系统版本的xposed包刷一下就完事了～</p>
+]]></content>
+      <tags>
+        <tag>刷机</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Python3创建虚拟环境</title>
+    <url>/2023/06/08/Python3%E5%88%9B%E5%BB%BA%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><meta name="referrer" content="no-referrer"/>
+
+
+<h2 id="1-安装-virtualenv"><a href="#1-安装-virtualenv" class="headerlink" title="1. 安装 virtualenv"></a>1. 安装 virtualenv</h2><p><code>pip3 install virtualenv</code></p>
+<h2 id="2-创建虚拟环境"><a href="#2-创建虚拟环境" class="headerlink" title="2. 创建虚拟环境"></a>2. 创建虚拟环境</h2><p>首先进入到一个你要保存虚拟环境的地方<br>我个人之前用conda习惯了，所以就在python的根目录创建了一个叫env的环境<br><img src="https://img-blog.csdnimg.cn/37cd10799a07497e83716145b4e23b31.png" alt="在这里插入图片描述"><br>步骤如下：<br>1.终端进入到env文件夹下<br>打开终端<br><code>python -m virtualenv 虚拟环境名字</code><br>比如我创建的是exe<br>就是<code>python3 -m virtualenv exe</code><br>2.进入到exe目录下的Scripts目录，使用<code>activae</code>命令激活虚拟环境<br>激活后是这样的： 前面写着你虚拟环境的目录<br><img src="https://img-blog.csdnimg.cn/64949f22bb0b44ebbf31d11cc7194c40.png" alt="在这里插入图片描述"></p>
+<h2 id="3-管理虚拟环境"><a href="#3-管理虚拟环境" class="headerlink" title="3. 管理虚拟环境"></a>3. 管理虚拟环境</h2><p>假如我创建了多个虚拟环境，难道每次都要先进到目录，然后敲activate激活？ 那太费劲了<br>解决方式<br>假如我现在有两个虚拟环境<br>exe 和 pandas</p>
+<p><img src="https://img-blog.csdnimg.cn/740d38fd3591408082677f63c914c39b.png" alt="在这里插入图片描述"><br>以exe为例子，我把exe&#x2F;Scripts下的activae 文件改名为activate_exe 然后再将该文件夹移动到环境变量<br>pandas 虚拟环境同理</p>
+<p>切记切记，一定要放在你原本的python环境变量路径的上方， 不然会覆盖，导致你全局的python就是个虚拟环境<br>（加入环境变量 这个就不演示了，不会的话百度）</p>
+<h2 id="4-激活-x2F-切换虚拟环境"><a href="#4-激活-x2F-切换虚拟环境" class="headerlink" title="4. 激活&#x2F;切换虚拟环境"></a>4. 激活&#x2F;切换虚拟环境</h2><p>在任意文件夹下打开终端<br>输入activate_exe 我就能激活exe虚拟环境<br>如果要切换<br>敲 <code>deactivate</code>退出虚拟环境，在进别的就行了</p>
+]]></content>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Python识别滑块缺口</title>
+    <url>/2023/06/08/Python%E8%AF%86%E5%88%AB%E6%BB%91%E5%9D%97%E7%BC%BA%E5%8F%A3/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><meta name="referrer" content="no-referrer"/>
+
+<p>自己调了一套，比较好用，做一下记录</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line">debug=<span class="literal">False</span> <span class="comment"># 调试的时候打开</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">generate_distance</span>(<span class="params">slice_content, bg_content</span>):</span><br><span class="line">    <span class="keyword">if</span> debug:</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;slice.png&#x27;</span>, <span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            f.write(slice_content)</span><br><span class="line">            f.close()</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;bg.png&#x27;</span>, <span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            f.write(bg_content)</span><br><span class="line">            f.close()</span><br><span class="line"></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    :param bg_url: 背景图地址</span></span><br><span class="line"><span class="string">    :param slice_url: 滑块图地址</span></span><br><span class="line"><span class="string">    :return: distance</span></span><br><span class="line"><span class="string">    :rtype: Integer</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    slice_image = np.asarray(<span class="built_in">bytearray</span>(slice_content), dtype=np.uint8)</span><br><span class="line">    slice_image = cv2.imdecode(slice_image, <span class="number">1</span>) </span><br><span class="line">    slice_image = cv2.Canny(slice_image, <span class="number">22</span>, <span class="number">22</span>) <span class="comment"># 不准的话就调这几个参数，慢慢调</span></span><br><span class="line"></span><br><span class="line">    bg_image = np.asarray(<span class="built_in">bytearray</span>(bg_content), dtype=np.uint8)</span><br><span class="line">    bg_image = cv2.imdecode(bg_image, <span class="number">1</span>)</span><br><span class="line">    bg_image = cv2.pyrMeanShiftFiltering(bg_image, <span class="number">20</span>, <span class="number">11</span>)<span class="comment"># 不准的话就调这几个参数，慢慢调</span></span><br><span class="line">    bg_image = cv2.Canny(bg_image, <span class="number">20</span>, <span class="number">20</span>)<span class="comment"># 不准的话就调这几个参数，慢慢调</span></span><br><span class="line"></span><br><span class="line">    bg_image = cv2.cvtColor(bg_image, cv2.COLOR_GRAY2RGB)</span><br><span class="line">    slice_image = cv2.cvtColor(slice_image, cv2.COLOR_GRAY2RGB)</span><br><span class="line"></span><br><span class="line">    result = cv2.matchTemplate(bg_image, slice_image, cv2.TM_CCOEFF_NORMED)</span><br><span class="line"></span><br><span class="line">    min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)</span><br><span class="line">    <span class="keyword">if</span> debug:</span><br><span class="line">        th, tw = slice_image.shape[:<span class="number">2</span>]</span><br><span class="line">        tl = max_loc  <span class="comment"># 左上角点的坐标</span></span><br><span class="line">        br = (tl[<span class="number">0</span>] + tw, tl[<span class="number">1</span>] + th)  <span class="comment"># 右下角点的坐标</span></span><br><span class="line">        cv2.rectangle(bg_image, tl, br, (<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>), <span class="number">2</span>)  <span class="comment"># 绘制矩形</span></span><br><span class="line">        cv2.imwrite(<span class="string">&#x27;out.jpg&#x27;</span>, bg_image)  <span class="comment"># 保存在本地</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> [max_loc[<span class="number">0</span>]]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>另外可以把成功的图片做一下缓存记录，很多时候能利用上<br>我的方式：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> redis</span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line">R = redis.Redis(host=<span class="string">&#x27;127.0.0.1&#x27;</span>, port=<span class="number">6379</span>, db=<span class="number">0</span>,, decode_responses=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">md5</span>(<span class="params">s</span>):</span><br><span class="line">    m = hashlib.md5()</span><br><span class="line">    m.update(s.encode())</span><br><span class="line">    <span class="keyword">return</span> m.hexdigest()</span><br><span class="line">    </span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> R.exists(<span class="string">f&#x27;平台名字_<span class="subst">&#123;md5(<span class="built_in">str</span>(bg_content))&#125;</span>&#x27;</span>):</span><br><span class="line">	代码省略...（处理图片并判断）</span><br><span class="line">	R.<span class="built_in">set</span>(<span class="string">f&#x27;平台名字_<span class="subst">&#123;md5(<span class="built_in">str</span>(bg_content))&#125;</span>&#x27;</span>,value) <span class="comment"># md5 自己实现 value是识别的结果 bg_content 是背景图的二进制流</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">	value = R.get(<span class="string">f&#x27;平台名字_<span class="subst">&#123;md5(<span class="built_in">str</span>(bg_content))&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line">	</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="补充一个网上比较好用的"><a href="#补充一个网上比较好用的" class="headerlink" title="补充一个网上比较好用的"></a>补充一个网上比较好用的</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import cv2</span><br><span class="line">import numpy as np</span><br><span class="line">import requests</span><br><span class="line">def generate_distance(slice_url, bg_url):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    :param bg_url: 背景图地址</span><br><span class="line">    :param slice_url: 滑块图地址</span><br><span class="line">    :return: distance</span><br><span class="line">    :rtype: Integer</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    slice_image = np.asarray(bytearray(requests.get(slice_url).content), dtype=np.uint8)</span><br><span class="line">    slice_image = cv2.imdecode(slice_image, 1)</span><br><span class="line">    slice_image = cv2.Canny(slice_image, 255, 255)</span><br><span class="line"></span><br><span class="line">    bg_image = np.asarray(bytearray(requests.get(bg_url).content), dtype=np.uint8)</span><br><span class="line">    bg_image = cv2.imdecode(bg_image, 1)</span><br><span class="line">    bg_image = cv2.pyrMeanShiftFiltering(bg_image, 5, 50)</span><br><span class="line">    bg_image = cv2.Canny(bg_image, 255, 255)</span><br><span class="line"></span><br><span class="line">    result = cv2.matchTemplate(bg_image, slice_image, cv2.TM_CCOEFF_NORMED)</span><br><span class="line"></span><br><span class="line">    min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)</span><br><span class="line"></span><br><span class="line">    return max_loc[0]</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Zyb遇坑记录</title>
+    <url>/2023/06/08/Zyb%E9%81%87%E5%9D%91%E8%AE%B0%E5%BD%95/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><meta name="referrer" content="no-referrer"/>
+
+<h1 id="此文章将会记录我以后遇到的bug以及解决方式"><a href="#此文章将会记录我以后遇到的bug以及解决方式" class="headerlink" title="此文章将会记录我以后遇到的bug以及解决方式"></a>此文章将会记录我以后遇到的bug以及解决方式</h1><h2 id="2022-10-24"><a href="#2022-10-24" class="headerlink" title="2022.10.24"></a>2022.10.24</h2><h3 id="1"><a href="#1" class="headerlink" title="1."></a>1.</h3><p>数字里只有 if 0是 False 其他的都是True</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> -<span class="number">1</span>:</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&#x27;True&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>这是会输出True的<br>函数想返回False的话要么返回False 要么是0要么是[] 或者是{}或者是’’或者是None之类的</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"><span class="keyword">return</span> []</span><br><span class="line"><span class="keyword">return</span> &#123;&#125;</span><br><span class="line"><span class="keyword">return</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">return</span> <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">等等</span><br></pre></td></tr></table></figure>
+
+<h3 id="2"><a href="#2" class="headerlink" title="2."></a>2.</h3><p>数据库批量插入加入有唯一索引重复或者主键重复的情况勿直接使用<code>INSERT  INTO</code><br>，会导致整批都插入不进去，应该用<code>INSERT IGNORE INTO</code> 。</p>
+<h2 id="2022-10-25"><a href="#2022-10-25" class="headerlink" title="2022.10.25"></a>2022.10.25</h2><h3 id="1-Scrapy-出现AttributeError-module-‘OpenSSL-SSL’-has-no-attribute-‘TLS-METHOD’"><a href="#1-Scrapy-出现AttributeError-module-‘OpenSSL-SSL’-has-no-attribute-‘TLS-METHOD’" class="headerlink" title="1.Scrapy 出现AttributeError: module ‘OpenSSL.SSL’ has no attribute ‘TLS_METHOD’"></a>1.Scrapy 出现AttributeError: module ‘OpenSSL.SSL’ has no attribute ‘TLS_METHOD’</h3><p>解决方案</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip uninstall cryptography</span><br><span class="line">pip install cryptography==36.0.2</span><br><span class="line">pip uninstall pyOpenSSL</span><br><span class="line">pip install pyOpenSSL==22.0.0</span><br></pre></td></tr></table></figure>
+
+<h2 id="2022-10-26"><a href="#2022-10-26" class="headerlink" title="2022.10.26"></a>2022.10.26</h2><h3 id="1-scrapy-bloomfilter-误判问题"><a href="#1-scrapy-bloomfilter-误判问题" class="headerlink" title="1. scrapy-bloomfilter 误判问题"></a>1. scrapy-bloomfilter 误判问题</h3><p>问题出在了 </p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">self.bf = BloomFilter(self.r, key=<span class="string">&#x27;scrapy-bloomfilter&#x27;</span>, bit=<span class="number">10</span>, hash_number=<span class="number">6</span>)</span><br></pre></td></tr></table></figure>
+<p>为了节省空间吧bit调整到了10<br>也就是2的10次方<br>官方介绍如下</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 去重类，要使用 BloomFilter 请替换 DUPEFILTER_CLASS</span></span><br><span class="line">DUPEFILTER_CLASS = <span class="string">&quot;scrapy_redis_bloomfilter.dupefilter.RFPDupeFilter&quot;</span></span><br><span class="line"><span class="comment"># 哈希函数的个数，默认为 6，可以自行修改</span></span><br><span class="line">BLOOMFILTER_HASH_NUMBER = <span class="number">6</span></span><br><span class="line"><span class="comment"># BloomFilter 的 bit 参数，默认 30，占用 128MB 空间，去重量级 1 亿</span></span><br><span class="line">BLOOMFILTER_BIT = <span class="number">30</span></span><br></pre></td></tr></table></figure>
+<p>默认是30，我调到了30 ，误判率增大了很多，导致把该跑的也去重了丢了很多数据。<br>30是128M 一亿指纹，32 是512 四亿指纹， 依次类推，要多少放多少。</p>
+<h3 id="2-scrapy-TypeError-to-bytes-must-receive-a-str-or-bytes-object-got-int"><a href="#2-scrapy-TypeError-to-bytes-must-receive-a-str-or-bytes-object-got-int" class="headerlink" title="2. scrapy TypeError: to_bytes must receive a str or bytes object, got int"></a>2. scrapy TypeError: to_bytes must receive a str or bytes object, got int</h3><p>Post请求的时候data键值对的值不能为整型，必须是字符串~</p>
+<h2 id="2022-10-27"><a href="#2022-10-27" class="headerlink" title="2022.10.27"></a>2022.10.27</h2><h3 id="1-深浅拷贝问题"><a href="#1-深浅拷贝问题" class="headerlink" title="1. 深浅拷贝问题"></a>1. 深浅拷贝问题</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line">Lis = []</span><br><span class="line">dic = &#123;</span><br><span class="line">    <span class="string">&#x27;pageSize&#x27;</span>: <span class="number">10</span>,</span><br><span class="line">    <span class="string">&#x27;pageIndex&#x27;</span>: <span class="number">1</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> page <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">3</span>):</span><br><span class="line">    dic[<span class="string">&#x27;pageIndex&#x27;</span>] = page</span><br><span class="line">    <span class="built_in">print</span>(dic)</span><br><span class="line">    Lis.append(dic)</span><br><span class="line"><span class="built_in">print</span>(Lis)</span><br></pre></td></tr></table></figure>
+<p>输出的结果是<br><img src="https://img-blog.csdnimg.cn/dbdd510083fc416680cf9cc51ac1cfd8.png" alt="在这里插入图片描述"><br>遍历输出的是1，2 。 放到列表就是2，2了</p>
+<p>解决方式：</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">Lis.append(copy.deepcopy(dic))</span><br></pre></td></tr></table></figure>
+<h3 id="2-Scrapy-Post-发送Json问题"><a href="#2-Scrapy-Post-发送Json问题" class="headerlink" title="2.Scrapy Post 发送Json问题"></a>2.Scrapy Post 发送Json问题</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">yield</span> scrapy.Request(url=self.start_urls[<span class="number">0</span>], method=<span class="string">&#x27;POST&#x27;</span>, body=json.dumps(data), callback=self.parse,</span><br><span class="line">                             dont_filter=<span class="literal">True</span>, headers=&#123;<span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/json&#x27;</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p>记得要加上 <code>headers=&#123;&#39;Content-Type&#39;: &#39;application/json&#39;&#125;</code></p>
+<h2 id="2022-11-02"><a href="#2022-11-02" class="headerlink" title="2022.11.02"></a>2022.11.02</h2><h3 id="1-gitignore-不生效问题"><a href="#1-gitignore-不生效问题" class="headerlink" title="1.gitignore 不生效问题"></a>1.gitignore 不生效问题</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git rm -r --cached . // 清除分支的缓存</span><br><span class="line">git add . // 重新添加</span><br><span class="line">git commit -m &#x27;update .gitignore&#x27; // 提交信息</span><br></pre></td></tr></table></figure>
+<h3 id="2-在终端黏贴出现多余字符串-00-01"><a href="#2-在终端黏贴出现多余字符串-00-01" class="headerlink" title="2 .在终端黏贴出现多余字符串 00~ 01~"></a>2 .在终端黏贴出现多余字符串 00~ 01~</h3><p>终端输入</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">printf &#x27;\e[?<span class="number">2004</span>l&#x27;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2022-11-03"><a href="#2022-11-03" class="headerlink" title="2022.11.03"></a>2022.11.03</h2><h3 id="1-copilot-失效问题"><a href="#1-copilot-失效问题" class="headerlink" title="1. copilot 失效问题"></a>1. copilot 失效问题</h3><p>我的做法是先添加git的host文件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nslookup github.global.ssl.fastly.Net</span><br><span class="line">nslookup github.com</span><br></pre></td></tr></table></figure>
+<p>执行上面的两行代码得到ip地址<br>然后编写host文件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/hosts</span><br><span class="line">粘贴下面的两行~</span><br><span class="line">github.com 20.205.243.166</span><br><span class="line">github.global.ssl.fastly.Net 199.193.116.105</span><br></pre></td></tr></table></figure>
+<p>然后刷新缓存</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo service networking restart</span><br><span class="line">sudo service network-manager restart</span><br><span class="line">sudo systemctl is-active systemd-resolved</span><br></pre></td></tr></table></figure>
+<p>这个时候还是得不到copilot的回应，我的做法是，去git上随便copy一个git仓库，克隆下来。<br>就能得到copilot的回应了（不知道为啥，应该是建立了某种连接了）<br>然后删掉拉下来的代码库就行了。</p>
+<h2 id="2022-12-20"><a href="#2022-12-20" class="headerlink" title="2022.12.20"></a>2022.12.20</h2><h3 id="1-Vscode-键盘粘贴错位问题"><a href="#1-Vscode-键盘粘贴错位问题" class="headerlink" title="1. Vscode 键盘粘贴错位问题"></a>1. Vscode 键盘粘贴错位问题</h3><p>解决方式<br>下载插件<br>Paste and Indent<br>按照主页要求配置keybindings.json文件即可。<br><img src="https://img-blog.csdnimg.cn/9508dc46bda1452d88bd85182998f1d5.png" alt="在这里插入图片描述"></p>
+<h2 id="2022-12-26"><a href="#2022-12-26" class="headerlink" title="2022.12.26"></a>2022.12.26</h2><h3 id="爬虫常见错误"><a href="#爬虫常见错误" class="headerlink" title="爬虫常见错误"></a>爬虫常见错误</h3><p><a href="https://code84.com/760020.html">这个网址可以看</a></p>
+]]></content>
+      <tags>
+        <tag>其他</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>python配置</title>
     <url>/2023/06/08/python%E9%85%8D%E7%BD%AE/</url>
-    <content><![CDATA[<h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><h3 id="包管理"><a href="#包管理" class="headerlink" title="包管理"></a>包管理</h3><p>Python导出requirements.txt</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><h3 id="包管理"><a href="#包管理" class="headerlink" title="包管理"></a>包管理</h3><p>Python导出requirements.txt</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pipreqs . --encoding=utf8 --force</span><br></pre></td></tr></table></figure>
 
 <p>安装依赖</p>
@@ -154,11 +280,103 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip uninstall tensorboard -y</span><br><span class="line">pip install tensorboard==1.15</span><br><span class="line">pip install protobuf==3.19.0</span><br><span class="line">pip uninstall pillow -y</span><br><span class="line">pip install pillow</span><br><span class="line"></span><br><span class="line">conda uninstall pillow -y</span><br><span class="line">conda install pillow </span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 ]]></content>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>loguru 如何把不同的日志写入不同的文件中</title>
+    <url>/2023/06/08/%E5%A6%82%E4%BD%95%E6%8A%8A%E4%B8%8D%E5%90%8C%E7%9A%84%E6%97%A5%E5%BF%97%E5%86%99%E5%85%A5%E4%B8%8D%E5%90%8C%E7%9A%84%E6%96%87%E4%BB%B6%E4%B8%AD/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><meta name="referrer" content="no-referrer"/>
+
+
+<h2 id="原本的写法"><a href="#原本的写法" class="headerlink" title="原本的写法"></a>原本的写法</h2><p>三个py三个logger，然后logger.add不同的文件名，不同的日志等级</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">logger.add(<span class="string">f&#x27;./log/爬虫-基本.log&#x27;</span>, level=<span class="string">&#x27;DEBUG&#x27;</span>, rotation=<span class="string">&#x27;100 MB&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">logger.add(<span class="string">f&#x27;./log/爬虫-速度.log&#x27;</span>, level=<span class="string">&#x27;TRACE&#x27;</span>, rotation=<span class="string">&#x27;100 MB&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>但是这种写法会造成一个问题：<br>高等级的日志信息会写进低等级的日志里<br>也就是说 debug的日志信息会写进trace里面，这样肯定是不行的</p>
+<h2 id="改进的写法"><a href="#改进的写法" class="headerlink" title="改进的写法"></a>改进的写法</h2><p>注意到add函数有个过滤表达式<br>那么可以针对日志里面的内容进行过滤<br>当日志信息等级为trace的时候，那就把信息存入到速度.log中<br>其余日志因为等级都会比trace高。所以trace的日志不会进debug里面，是否过滤都无所谓<br>写法</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">logger.add(<span class="string">f&#x27;./log/爬虫-速度.log&#x27;</span>, level=<span class="string">&#x27;TRACE&#x27;</span>, rotation=<span class="string">&#x27;100 MB&#x27;</span>, <span class="built_in">filter</span>=<span class="keyword">lambda</span> x:<span class="string">&#x27;TRACE&#x27;</span> <span class="keyword">in</span> <span class="built_in">str</span>(x[<span class="string">&#x27;level&#x27;</span>]).upper())</span><br></pre></td></tr></table></figure>
+<p>或者根据关键字过滤也可以</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">logger.add(<span class="string">f&#x27;./log/爬虫-速度.log&#x27;</span>, level=<span class="string">&#x27;TRACE&#x27;</span>, rotation=<span class="string">&#x27;100 MB&#x27;</span>, <span class="built_in">filter</span>=<span class="keyword">lambda</span> x: <span class="string">&#x27;耗时&#x27;</span> <span class="keyword">in</span> x[<span class="string">&#x27;message&#x27;</span>])</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>其他</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>安卓上基于透明代理对APP抓包</title>
+    <url>/2023/06/08/%E5%AE%89%E5%8D%93%E4%B8%8A%E5%9F%BA%E4%BA%8E%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86%E5%AF%B9APP%E6%8A%93%E5%8C%85/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="简述"><a href="#简述" class="headerlink" title="简述"></a>简述</h2><p>使用iptables将手机的全部tcp流量转到指定的透明代理上；<br>再使用redsocks将流量转发到正向代理，如Charles的socks5代理</p>
+<p>基于iptables + redsocks2 + Charles，最终实现对安卓APP进行抓包，<strong>且APP无感知</strong><br>即APP不能通过检查系统代理或者VPN来判断是不是有抓包行为</p>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>root过的安卓手机一部，电脑一台<br>redsocks2 下载地址：<a href="https://fh0.github.io/assets/android-redsocks2.tgz">https://fh0.github.io/assets/android-redsocks2.tgz</a></p>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><p>创建配置文件，名为redsocks.conf，内容如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">base &#123;</span><br><span class="line">    log_debug = off;</span><br><span class="line">    log_info = on;</span><br><span class="line">    log = stderr;</span><br><span class="line">    daemon = off;</span><br><span class="line">    redirector = iptables;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">redsocks &#123;</span><br><span class="line">    bind = &quot;127.0.0.1:8080&quot;;</span><br><span class="line">    relay = &quot;192.168.0.132:7777&quot;;</span><br><span class="line">    type = socks5;</span><br><span class="line">    autoproxy = 0;</span><br><span class="line">    timeout = 10;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中bind就是透明代理地址，relay就是Charles的代理地址</p>
+<p>打开终端adb shell 连接手机</p>
+<ol>
+<li>保存现有的iptables规则<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">iptables-save &gt; /data/local/tmp/iptables.rules</span><br></pre></td></tr></table></figure></li>
+<li>假如要恢复规则，需要重启手机或者输入<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">iptables-restore /data/local/tmp/iptables.rules</span><br></pre></td></tr></table></figure></li>
+<li>上传文件，开启透明代理<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">adb push redsocks2_arm64 /data/local/tmp/redsocks</span><br><span class="line">adb shell chmod +x /data/local/tmp/redsocks</span><br><span class="line">adb shell</span><br><span class="line">su</span><br><span class="line">cd /data/local/tmp</span><br><span class="line">iptables -t nat -A OUTPUT -p tcp ! -d 127.0.0.1 -m multiport --dports 80,443 -j DNAT --to-destination 127.0.0.1:8080</span><br><span class="line">./redsocks</span><br></pre></td></tr></table></figure></li>
+<li>Charles 设置Socks5代理端口7777</li>
+</ol>
+<h2 id="指定端口、App"><a href="#指定端口、App" class="headerlink" title="指定端口、App"></a>指定端口、App</h2><p>上述步骤完成，就达到了抓包App无感知的目的<br>假如不想让全局的流量都走代理</p>
+<ol>
+<li>指定端口<br>其实上面已经写了，当前是指定的80，443端口，也可以指定0-65535，改为 –dports 0:65535即可</li>
+<li>指定App<br>首先要找到App的uid</li>
+</ol>
+<p>先打开你的APP，然后ps -ef命令找到有你的应用包名那一行，第一列就是uid<br>通常你看到的是u0_a428这样的，那么后面的命令，uid相关的可以写成u0_a428，也可以写成10428<br>然后把命令换成</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">iptables -t nat -A OUTPUT -p tcp ! -d 127.0.0.1 -m owner --uid-owner 10428 --dports 80,443 -j DNAT --to-destination 127.0.0.1:8080</span><br></pre></td></tr></table></figure>
+
+
+<p>参考<br><a href="https://blog.seeflower.dev/archives/207/">https://blog.seeflower.dev/archives/207/</a><br><a href="https://mp.weixin.qq.com/s/P0ESUUXBmq2aQnrqDHsDaw">https://mp.weixin.qq.com/s/P0ESUUXBmq2aQnrqDHsDaw</a><br><a href="https://blog.mythsman.com/post/62791fb4b5467000017d5c6e/">https://blog.mythsman.com/post/62791fb4b5467000017d5c6e/</a></p>
+]]></content>
+      <tags>
+        <tag>抓包</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>安卓下 mount ‘/system‘ not in /proc/mounts</title>
+    <url>/2023/06/08/%E5%AE%89%E5%8D%93%E4%B8%8B-mount-%E2%80%98-system%E2%80%98-not-in-proc-mounts/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><meta name="referrer" content="no-referrer"/>
+
+
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>1.执行mount -o rw,remount -t auto &#x2F;system<br>2.还是报错’&#x2F;system’ not in &#x2F;proc&#x2F;mounts<br>3.改为mount -o rw,remount -t auto &#x2F;</p>
+<p>如果遇到<br>‘&#x2F;dev&#x2F;root’ is read-only<br>说明你手机需要刷机了<br>我也是折腾了俩小时才解决的<br>参照这个网址，很顺利。<br><a href="https://blog.51cto.com/u_14202100/5082828">【Android】Pixel 2 Android 9 系统 ROOT 操作 ( TWRP 下载 | Magisk Manager 下载 | 线刷包下载 | 线刷 9.0 系统 | ROOT 操作 )</a></p>
+<p>我用的是 pixel 2L 要选择好自己对应的系统</p>
+<p>附图：<br><img src="https://img-blog.csdnimg.cn/b6099677d07f4e319e43980de4810046.png" alt="在这里插入图片描述"></p>
+]]></content>
+      <tags>
+        <tag>Android</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>安装全局模块仍然提示找不到的解决方式</title>
+    <url>/2023/06/08/%E5%AE%89%E8%A3%85%E5%85%A8%E5%B1%80%E6%A8%A1%E5%9D%97%E4%BB%8D%E7%84%B6%E6%8F%90%E7%A4%BA%E6%89%BE%E4%B8%8D%E5%88%B0%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E5%BC%8F/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><meta name="referrer" content="no-referrer"/>
+
+<p>几个步骤</p>
+<ol>
+<li><p>找到node的安装位置</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm config get prefix</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/a4cbf94ae8b7485594446f3ffd1e31eb.png" alt="在这里插入图片描述"></p>
+</li>
+<li><p>查看当前node回检索的包目录<br><img src="https://img-blog.csdnimg.cn/2d1eb47564974ae1977168e22a9d08b4.png" alt="在这里插入图片描述"><br>步骤1的目录没在这里面</p>
+</li>
+<li><p>设置环境变量</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">export NODE_PATH=&quot;/opt/homebrew/npm/lib/node_modules&quot;</span><br></pre></td></tr></table></figure></li>
+<li><p>再次查看<br><img src="https://img-blog.csdnimg.cn/7ec4f3a8d42a4b23a6709d189ea9404d.png" alt="在这里插入图片描述"><br>有了<br>刷新终端即可使用全局包。</p>
+</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>nodejs</tag>
+      </tags>
   </entry>
   <entry>
     <title>简介</title>
     <url>/2023/06/07/%E7%AE%80%E4%BB%8B/</url>
-    <content><![CDATA[<p>我的名字叫阿乐 年龄22岁 家在河南省周口市 未婚 职业是软件开发 每天最晚也会在八点前回家 不抽烟 酒浅尝辄止 晚上十二点上床 保证睡足八个小时 睡前写一篇博客 再做二十分钟俯卧撑暖身 然后再睡觉 基本能熟睡到天亮 像婴儿一样不留下任何疲劳和压力 就这样迎来第二天的早晨 健康检查结果也显示我很正常 我想说明我是一个不论何时都追求内心平稳的人 不拘泥于胜负 不纠结于烦恼 不树立使我夜不能寐的敌人 这就是我在这社会的生活态度</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>我的名字叫阿乐 年龄22岁 家在河南省周口市 未婚 职业是软件开发 每天最晚也会在八点前回家 不抽烟 酒浅尝辄止 晚上十二点上床 保证睡足八个小时 睡前写一篇博客 再做二十分钟俯卧撑暖身 然后再睡觉 基本能熟睡到天亮 像婴儿一样不留下任何疲劳和压力 就这样迎来第二天的早晨 健康检查结果也显示我很正常 我想说明我是一个不论何时都追求内心平稳的人 不拘泥于胜负 不纠结于烦恼 不树立使我夜不能寐的敌人 这就是我在这社会的生活态度</p>
 ]]></content>
   </entry>
 </search>
