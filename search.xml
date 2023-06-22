@@ -730,4 +730,209 @@
         <tag>Frida</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Python 异步编程</title>
+    <url>/2023/06/22/Python-%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer"/>
+
+<h1 id="Python-异步编程"><a href="#Python-异步编程" class="headerlink" title="Python 异步编程"></a>Python 异步编程</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Python 异步编程是一种高效的编程方式，它利用了单线程异步、协程、事件循环等机制，以最小的资源消耗实现多任务的同时避免了并发编程带来的复杂性。在异步编程中，任务可以在同一个线程内并发执行，而不需要线程之间的切换，从而大大提高了程序的性能。</p>
+<p>Python 中常用的异步编程库包括 <strong>asyncio</strong>、<strong>aiohttp</strong>、<strong>aiofiles</strong>、<strong>asyncpg</strong>、<strong>aiomysql</strong> 等。<strong>asyncio</strong> 是 Python 内置的异步编程库，它提供了事件循环、协程、任务等基础组件，可以方便地实现异步编程。aiohttp 是一个基于 asyncio 的 HTTP 客户端和服务器库，可以方便地实现异步网络编程。aiofiles 支持异步读写文件操作，asyncpg 和 aiomysql 用于异步访问 PostgreSQL 和 MySQL 数据库。</p>
+<h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><ol>
+<li>Web 应用程序的并发处理：异步编程可以让 Web 服务器同时处理多个请求，在此过程中会涉及多个 I&#x2F;O 操作，如读取数据库、处理文件上传、发送电子邮件等。</li>
+<li>网络编程：异步编程可用于编写客户端和服务器端应用程序，例如聊天应用程序。</li>
+<li>数据分析和科学计算：当处理大量数据、模型训练和推理时，使用异步编程可以大大提高计算效率。</li>
+<li>消息传递和事件处理：异步编程可以用于消息队列、事件传递和订阅-发布模式等应用程序，可以同时处理多个消息或事件。</li>
+</ol>
+<h2 id="关键词解释"><a href="#关键词解释" class="headerlink" title="关键词解释"></a>关键词解释</h2><p><strong>异步：</strong> 程序在执行过程中并不会阻塞等待结果，而是继续执行下一步操作，直到结果就绪后再回来处理。这种机制能够提升程序的效率和并发性，因为在等待某些操作的时候，程序可以同时执行其他任务。异步常被用于网络通信、文件IO等延迟较高的操作。</p>
+<p><strong>异步IO：</strong> 一种与语言无关的编程模型，它从单线程、单进程的角度出发，采用协作多任务的方式完成异步IO操作的处理。</p>
+<p><strong>async&#x2F;await：</strong> 两个用于定义协程的新 Python 关键字。</p>
+<p><strong>asyncio：</strong> Python 标准库，为运行和管理协程提供了基础和 API。</p>
+<h2 id="API-解释"><a href="#API-解释" class="headerlink" title="API 解释"></a>API 解释</h2><ol>
+<li><strong>async</strong>：async 是 Python 中的关键字，用于声明异步函数。异步函数返回一个协程对象，协程对象可以并发执行。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">async def coroutine_func():</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><strong>await</strong>：await 关键字用于等待异步函数的执行结果。当遇到 await 关键字时，Python 会暂停该异步函数的执行，等待另一个协程的执行完成或者等待异步操作的完成。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">result = await func()</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><strong>asynico</strong>：asyncio 是 Python 用于异步编程的框架，提供了一组 API 用于异步 I&#x2F;O 操作的管理。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import asyncio</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><strong>gather</strong>：gather() 函数是 asyncio 中的一个 API，它可以并发执行多个协程，并返回全部的协程结果。协程的执行顺序和参数的顺序相同。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">results = await asyncio.gather(*[coroutine_func1(), coroutine_func2()])</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><strong>run</strong>：run() 函数是 asyncio 模块中的一个快捷函数，用于运行异步函数。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">async def main():</span><br><span class="line">    ...</span><br><span class="line">asyncio.run(main())</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><strong>async with</strong>：async with 语法可以用来管理异步上下文。async with 语法实现了 <strong>aenter</strong>() 和 <strong>aexit</strong>() 异步方法的对象。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">async with lock:</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><strong>async for</strong>：async for 语法可以用来作为异步生成器的循环。async for 语法实现了 <strong>aiter</strong>() 和 <strong>anext</strong>() 异步方法的对象。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">async for item in async_iterator():</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><strong>asyncio.StreamReader</strong>：异步操作的流读写器类。用于从异步传输流中读取数据。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">reader = asyncio.StreamReader()</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><strong>asyncio.StreamWriter</strong>：异步操作的流读写器类。用于向异步传输流中写入数据。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">writer = asyncio.StreamWriter()</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>**asyncio.create_task()**：创建并返回一个 Task 对象，Task 对象可以用于管理协程并发执行的状态。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">task = asyncio.create_task(coroutine_func())</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>**asyncio.sleep()**：暂停当前协程的执行，等待一定时间。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">await asyncio.sleep(1)</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>**asyncio.wait_for()**：等待一个异步操作的结果，并限制其最大等待时间。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">result = await asyncio.wait_for(coroutine_func(), timeout=1)</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>**asyncio.wait()**：并发执行多个协程，等待所有协程完成。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">done, pending = await asyncio.wait(coroutines, timeout=1, return_when=asyncio.FIRST_EXCEPTION)</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>**asyncio.ensure_future()**：创建并返回一个 Future 对象，Future 对象可以用于管理异步操作的状态。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">future = asyncio.ensure_future(coroutine_func())</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><strong>asyncio.Queue</strong>：异步操作的队列类，可以用于管理协程之间的通信。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">queue = asyncio.Queue()</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><strong>loop</strong>：event loop 是异步编程中最主要的对象。event loop 是用于管理协程并发执行和异步 I&#x2F;O 操作的。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">loop = asyncio.get_event_loop()</span><br></pre></td></tr></table></figure>
+
+<h2 id="不同版本的介绍"><a href="#不同版本的介绍" class="headerlink" title="不同版本的介绍"></a>不同版本的介绍</h2><h3 id="Python3-7-之前的版本"><a href="#Python3-7-之前的版本" class="headerlink" title="Python3.7 之前的版本"></a>Python3.7 之前的版本</h3><p>在 Python3.7 之前的版本中，需要使用以下步骤运行异步程序：</p>
+<ol>
+<li>获取事件循环对象：通过 <code>asyncio.get_event_loop()</code> 函数获取当前线程的事件循环对象，如果线程中不存在事件循环对象，则创建一个新的事件循环对象并返回它。</li>
+<li>创建任务对象：通过 <code>asyncio.ensure_future()</code> 或者 <code>loop.create_task()</code> 函数创建协程对象的任务对象，并将任务对象添加到事件循环中。</li>
+<li>运行异步程序：调用事件循环对象的 <code>loop.run_until_complete()</code> 方法来运行异步程序，直到协程对象运行完成后返回结果。</li>
+<li>关闭事件循环对象：在异步程序运行结束后，需要调用事件循环对象的 <code>loop.close()</code> 方法来关闭事件循环对象。</li>
+</ol>
+<p>例如，要运行两个协程对象 <code>coro1()</code> 和 <code>coro2()</code>，可以使用以下代码：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">coro1</span>():</span><br><span class="line">    <span class="comment"># do something...</span></span><br><span class="line">    <span class="keyword">return</span> result1</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">coro2</span>():</span><br><span class="line">    <span class="comment"># do something...</span></span><br><span class="line">    <span class="keyword">return</span> result2</span><br><span class="line"></span><br><span class="line">loop = asyncio.get_event_loop()</span><br><span class="line">task1 = asyncio.ensure_future(coro1())</span><br><span class="line">task2 = asyncio.ensure_future(coro2())</span><br><span class="line">results = loop.run_until_complete(asyncio.gather(task1, task2))</span><br><span class="line">loop.close()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(results)</span><br></pre></td></tr></table></figure>
+
+<p>这种方式虽然稍微有点繁琐，但是它仍然是有效的，并且在 Python3.7 之前是常用的异步编程方式。</p>
+<p>这个版本不再多说，因为在 3.7 之后引入了更方便更强大的 API。</p>
+<h3 id="Python3-7-之后的版本"><a href="#Python3-7-之后的版本" class="headerlink" title="Python3.7 之后的版本"></a>Python3.7 之后的版本</h3><p>在 Python 3.7 引入的 <code>asyncio.run()</code> 函数极大地简化了 asyncio 的使用，简化了异步编程的过程，允许我们更轻松地编写异步代码。使用 <code>asyncio.run()</code> 函数，可以摆脱手动获取和关闭事件循环对象的过程，同时也提供了一些可选的参数来方便我们控制事件循环的运行。</p>
+<p>例如，我们可以使用以下代码运行两个协程对象 <code>coro1()</code> 和 <code>coro2()</code>：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">coro1</span>():</span><br><span class="line">    <span class="comment"># do something...</span></span><br><span class="line">    <span class="keyword">return</span> result1</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">coro2</span>():</span><br><span class="line">    <span class="comment"># do something...</span></span><br><span class="line">    <span class="keyword">return</span> result2</span><br><span class="line"></span><br><span class="line">results = asyncio.run(asyncio.gather(coro1(), coro2()))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(results)</span><br></pre></td></tr></table></figure>
+
+<p>这样就非常简单和直观了，无需手动获取和关闭事件循环对象。除此之外，<code>asyncio.run()</code> 函数还支持一些可选的参数，如 <code>debug</code>、<code>shield</code>、<code>timeout</code>，这些参数能够让我们更加灵活、方便地控制异步程序的运行。</p>
+<p>总之，<code>asyncio.run()</code> 函数让 asyncio 的使用更加简单和直观，是值得推荐的异步编程方式。</p>
+<h3 id="强大的asyncio-gather"><a href="#强大的asyncio-gather" class="headerlink" title="强大的asyncio.gather"></a>强大的asyncio.gather</h3><p><code>asyncio.gather()</code> 函数的确提供了一种更加方便的方式来同时运行多个协程，特别是当需要在程序中同时执行多个并发任务的时候，使用 <code>asyncio.gather()</code> 函数会更加方便和高效。因为该函数可以让我们方便地指定一组协程，然后等待所有协程完成后再统一收集结果。</p>
+<p>例如，我们可以使用以下代码运行多个协程：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">coro1</span>():</span><br><span class="line">    <span class="comment"># do something...</span></span><br><span class="line">    <span class="keyword">return</span> result1</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">coro2</span>():</span><br><span class="line">    <span class="comment"># do something...</span></span><br><span class="line">    <span class="keyword">return</span> result2</span><br><span class="line"></span><br><span class="line">results = asyncio.run(asyncio.gather(coro1(), coro2()))</span><br><span class="line"><span class="built_in">print</span>(results)</span><br></pre></td></tr></table></figure>
+
+<p>在 <code>asyncio.gather</code> 函数的文档中，它会返回一个协程对象，该协程对象的结果是一个列表，列表中包含了每个调用的协程对象的结果，同时这个列表的顺序与协程对象的调用顺序一致。因此在示例代码中，传入 <code>asyncio.gather</code> 函数的第一个参数是 <code>func1()</code>，第二个参数是 <code>func2()</code>，因此在 <code>results</code> 的结果中，<code>results[0]</code> 对应着 <code>func1()</code> 的返回值。</p>
+<p>需要注意的是，当多个协程对象并发执行的时候，获取返回值的时候需要保证执行顺序一致，否则可能会出现混淆的情况。可以通过调节协程对象执行顺序或者使用协程对象返回值的标识符进行区分，从而避免混淆。</p>
+<p>总之，对于需要同时运行多个协程的情况，使用 <code>asyncio.gather()</code> 函数能够提供一种高效灵活的方案，能够方便地并发执行多个协程并收集结果。</p>
+<h4 id="结合-for-循环"><a href="#结合-for-循环" class="headerlink" title="结合 for 循环"></a>结合 for 循环</h4><p>使用 <code>asyncio.gather()</code> 函数和 for 循环结合起来可以方便地处理一系列相关的异步任务。下面是一个例子：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">worker</span>(<span class="params"><span class="built_in">id</span></span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Worker <span class="subst">&#123;<span class="built_in">id</span>&#125;</span> start&quot;</span>)</span><br><span class="line">    <span class="keyword">await</span> asyncio.sleep(<span class="number">1</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Worker <span class="subst">&#123;<span class="built_in">id</span>&#125;</span> done&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">f&quot;Result <span class="subst">&#123;<span class="built_in">id</span>&#125;</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    tasks = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">        task = asyncio.create_task(worker(i))</span><br><span class="line">        tasks.append(task)</span><br><span class="line"></span><br><span class="line">    results = <span class="keyword">await</span> asyncio.gather(*tasks)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Results:&quot;</span>, results)</span><br><span class="line"></span><br><span class="line">asyncio.run(main())</span><br></pre></td></tr></table></figure>
+
+<p>这个例子中，我们定义了一个 <code>worker()</code> 协程，它是一个模拟异步任务的函数，会等待 1 秒钟然后返回一个结果。在 <code>main()</code> 函数中，我们使用 for 循环创建了 3 个协程任务对象，并将它们加入到任务列表 <code>tasks</code> 中。然后，我们使用 <code>asyncio.gather()</code> 函数将这些协程一起运行，并等待它们全部完成。最后，我们将所有协程的结果打印出来。</p>
+<p>这个例子展示了如何使用 <code>asyncio.gather()</code> 和 for 循环一起处理一批相关的协程任务，简化了异步任务的调度和管理。</p>
+<h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><h3 id="最基础的案例"><a href="#最基础的案例" class="headerlink" title="最基础的案例"></a>最基础的案例</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">func1</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;hello&#x27;</span>)</span><br><span class="line">    <span class="comment"># 休眠三秒后输出world</span></span><br><span class="line">    <span class="keyword">await</span> asyncio.sleep(<span class="number">3</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;world&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;a&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">func2</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;函数 2&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;b&#x27;</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    results = <span class="keyword">await</span> asyncio.gather(func1(),func2())</span><br><span class="line">    <span class="built_in">print</span>(results)</span><br><span class="line"></span><br><span class="line">asyncio.run(main())</span><br></pre></td></tr></table></figure>
+
+<p>这段代码使用了asyncio库来进行异步编程。在程序运行时，创建了三个async函数：func1，func2和main。</p>
+<p>func1函数中，首先输出了一个字符串”hello”，之后使用await asyncio.sleep(3)来实现3秒的延时，最后输出另一个字符串”world”。这个函数返回了一个字符串’a’。</p>
+<p>func2函数中，只是简单地输出了一个字符串”函数2”，并返回了一个字符串’b’。</p>
+<p>main函数中，使用了asyncio.gather()函数来并发执行func1和func2函数，并等待所有函数执行完毕。最后，输出了两个函数的返回值。</p>
+<p>最后，使用asyncio.run()函数来启动整个异步程序。整个程序运行时，先输出”hello”，然后等待3秒，输出”world”，最后输出”函数2”和[‘a’, ‘b’]。</p>
+<h3 id="爬虫案例"><a href="#爬虫案例" class="headerlink" title="爬虫案例"></a>爬虫案例</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> aiohttp</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">async_http</span>():</span><br><span class="line">    <span class="comment"># 声明一个支持异步的上下文管理器</span></span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">with</span> aiohttp.ClientSession() <span class="keyword">as</span> session:</span><br><span class="line">        res = <span class="keyword">await</span> session.get(<span class="string">&#x27;http://httpbin.org/delay/2&#x27;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;当前时间：<span class="subst">&#123;datetime.datetime.now()&#125;</span>, status_code = <span class="subst">&#123;res.status&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line">tasks = [async_http() <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>)]</span><br><span class="line">start = time.time()</span><br><span class="line"><span class="comment"># Python 3.7 及以后,不需要显式声明事件循环,可以使用 asyncio.run()来代替后的启动操作</span></span><br><span class="line">asyncio.run(asyncio.wait(tasks))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;aiohttp异步耗时：<span class="subst">&#123;time.time() - start&#125;</span>&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这段代码是利用aiohttp库实现了异步请求的效果，使用了Python的asyncio框架，其中async_http()是异步请求的函数，通过aiohttp库创建了一个异步的ClientSession对象，使用session.get()方法向指定的url发起异步请求，并返回响应结果res。最后，通过asyncio.run()来启动事件循环，等待所有的异步请求都结束，最后计算异步请求的耗时。</p>
+<h4 id="请求类型"><a href="#请求类型" class="headerlink" title="请求类型"></a>请求类型</h4><p>除了get请求，aiohttp还支持其它请求类型，如POST、PUT、DELETE等，和requests使用方式类似。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">session.post(<span class="string">&#x27;http://httpbin.org/post&#x27;</span>, data=<span class="string">b&#x27;data&#x27;</span>)</span><br><span class="line">session.put(<span class="string">&#x27;http://httpbin.org/put&#x27;</span>, data=<span class="string">b&#x27;data&#x27;</span>)</span><br><span class="line">session.delete(<span class="string">&#x27;http://httpbin.org/delete&#x27;</span>)</span><br><span class="line">session.head(<span class="string">&#x27;http://httpbin.org/get&#x27;</span>)</span><br><span class="line">session.options(<span class="string">&#x27;http://httpbin.org/get&#x27;</span>)</span><br><span class="line">session.patch(<span class="string">&#x27;http://httpbin.org/patch&#x27;</span>, data=<span class="string">b&#x27;data&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="响应的几个方法"><a href="#响应的几个方法" class="headerlink" title="响应的几个方法"></a>响应的几个方法</h4><p>对于响应来说，我们可以用如下方法分别获取其中的响应情况。状态码、响应头、响应体、响应体二进制内容、响应体JSON结果，实例如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># @Author  : 钢铁知识库</span></span><br><span class="line"><span class="keyword">import</span> aiohttp</span><br><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    data = &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;知识库&#x27;</span>, <span class="string">&#x27;age&#x27;</span>: <span class="number">23</span>&#125;</span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">with</span> aiohttp.ClientSession() <span class="keyword">as</span> session:</span><br><span class="line">        <span class="keyword">async</span> <span class="keyword">with</span> session.post(<span class="string">&#x27;https://www.httpbin.org/post&#x27;</span>, data=data) <span class="keyword">as</span> response:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;status:&#x27;</span>, response.status)  <span class="comment"># 状态码</span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;headers:&#x27;</span>, response.headers)  <span class="comment"># 响应头</span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;body:&#x27;</span>, <span class="keyword">await</span> response.text())  <span class="comment"># 响应体</span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;bytes:&#x27;</span>, <span class="keyword">await</span> response.read())  <span class="comment"># 响应体二进制内容</span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;json:&#x27;</span>, <span class="keyword">await</span> response.json())  <span class="comment"># 响应体json数据</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    asyncio.get_event_loop().run_until_complete(main())</span><br></pre></td></tr></table></figure>
+
+<h4 id="超时设置"><a href="#超时设置" class="headerlink" title="超时设置"></a>超时设置</h4><p>我们可以借助<code>ClientTimeout</code>对象设置超时，例如要设置1秒的超时时间，可以这么实现：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># @Author  : 钢铁知识库</span></span><br><span class="line"><span class="keyword">import</span> aiohttp</span><br><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    <span class="comment"># 设置 1 秒的超时 </span></span><br><span class="line">    timeout = aiohttp.ClientTimeout(total=<span class="number">1</span>)</span><br><span class="line">    data = &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;知识库&#x27;</span>, <span class="string">&#x27;age&#x27;</span>: <span class="number">23</span>&#125;</span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">with</span> aiohttp.ClientSession(timeout=timeout) <span class="keyword">as</span> session:</span><br><span class="line">        <span class="keyword">async</span> <span class="keyword">with</span> session.get(<span class="string">&#x27;https://www.httpbin.org/delay/2&#x27;</span>, data=data) <span class="keyword">as</span> response:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;status:&#x27;</span>, response.status)  <span class="comment"># 状态码</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    asyncio.get_event_loop().run_until_complete(main())</span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">Traceback (most recent call last):</span></span><br><span class="line"><span class="string">####中间省略####</span></span><br><span class="line"><span class="string">    raise asyncio.TimeoutError from None</span></span><br><span class="line"><span class="string">asyncio.exceptions.TimeoutError</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>这里设置了超时1秒请求延时2秒，发现抛出异常<code>asyncio.TimeoutError</code>，如果正常则响应200。</p>
+<h4 id="并发限制"><a href="#并发限制" class="headerlink" title="并发限制"></a>并发限制</h4><p>aiohttp可以支持非常高的并发量，但面对高并发网站可能会承受不住，随时有挂掉的危险，这时需要对并发进行一些控制。现在我们借助asyncio 的Semaphore来控制并发量，实例如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># @Author  : 钢铁知识库</span></span><br><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">import</span> aiohttp</span><br><span class="line"></span><br><span class="line"><span class="comment"># 声明大并发量</span></span><br><span class="line">semaphore = asyncio.Semaphore(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">get_api</span>():</span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">with</span> semaphore:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;scrapting...<span class="subst">&#123;datetime.now()&#125;</span>&#x27;</span>)</span><br><span class="line">        <span class="keyword">async</span> <span class="keyword">with</span> session.get(<span class="string">&#x27;https://www.baidu.com&#x27;</span>) <span class="keyword">as</span> response:</span><br><span class="line">            <span class="keyword">await</span> asyncio.sleep(<span class="number">2</span>)</span><br><span class="line">            <span class="comment"># print(f&#x27;当前时间：&#123;datetime.now()&#125;, &#123;response.status&#125;&#x27;)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    <span class="keyword">global</span> session</span><br><span class="line">    session = aiohttp.ClientSession()</span><br><span class="line">    tasks = [asyncio.ensure_future(get_api()) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1000</span>)]</span><br><span class="line">    <span class="keyword">await</span> asyncio.gather(*tasks)</span><br><span class="line">    <span class="keyword">await</span> session.close()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    asyncio.get_event_loop().run_until_complete(main())</span><br></pre></td></tr></table></figure>
+
+<p>在main方法里，我们声明了1000个task，如果没有通过Semaphore进行并发限制，那这1000放到gather方法后会被同时执行，并发量相当大。有了信号量的控制之后，同时运行的task数量就会被控制，这样就能给aiohttp限制速度了。</p>
+<h2 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h2><p>这部分我会分为需求和方案两个模块，假设有异步编程需求，该给出怎么样的解决方案。</p>
+<h3 id="需求1"><a href="#需求1" class="headerlink" title="需求1"></a>需求1</h3><h4 id="需求描述"><a href="#需求描述" class="headerlink" title="需求描述"></a>需求描述</h4><p>当 Web 应用程序需要处理多个请求时，通常会发生大量的 I&#x2F;O 操作，例如读取数据库或文件、发送邮件等操作。这些操作通常会占用大量的时间，如果在每个请求中都同步执行它们，将会严重影响响应时间和服务器的性能，如何解决呢？</p>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p>asyncio.start_server 是 asyncio 标准库提供的一个函数，是用于创建一个异步 TCP 服务器的工具方法。该函数的原型如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">asyncio.start_server(client_connected_cb, host=<span class="literal">None</span>, port=<span class="literal">None</span>, *,</span><br><span class="line">                     loop=<span class="literal">None</span>, family=socket.AF_UNSPEC, flags=socket.AI_PASSIVE, sock=<span class="literal">None</span>, backlog=<span class="number">100</span>, ssl=<span class="literal">None</span>, server_hostname=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
+
+<p>参数说明如下：</p>
+<ul>
+<li><code>client_connected_cb</code>: 当有新的客户端连接时，会调用此回调函数。</li>
+<li><code>host</code>: 监听的 IP 地址，默认为 None，表示监听所有可用的地址。</li>
+<li><code>port</code>: 监听的端口号。</li>
+<li><code>loop</code>: 事件循环，用于异步处理客户端请求。</li>
+<li><code>family</code>: 指定要使用的地址族，默认为 <code>socket.AF_UNSPEC</code>，表示同时兼容 IPv4 和 IPv6。</li>
+<li><code>flags</code>: 指定 <code>getaddrinfo()</code> 函数的标志，默认为 <code>socket.AI_PASSIVE</code>，表示从所有网络接口获取信息。</li>
+<li><code>sock</code>: 指定要使用的套接字对象，如果指定了该参数，则不能同时指定 host 和 port。</li>
+<li><code>backlog</code>: 最大等待连接的数量。</li>
+<li><code>ssl</code>, <code>server_hostname</code>: 如果要使用 SSL 安全传输协议，则可以指定 SSLContext 对象和服务器的主机名。</li>
+</ul>
+<p>使用 asyncio.start_server，我们可以方便地创建一个 TCP 服务器，用于处理客户端的请求。在上面的示例代码中，我们使用 start_server 创建了一个异步 Web 服务器，监听本地的 8080 端口，当有客户端连接时，会调用 handle_request 函数进行异步处理。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">handle_request</span>(<span class="params">reader, writer</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;异步处理请求&quot;&quot;&quot;</span></span><br><span class="line">    data = <span class="keyword">await</span> reader.read(<span class="number">1024</span>)</span><br><span class="line">    message = data.decode()</span><br><span class="line">    addr = writer.get_extra_info(<span class="string">&#x27;peername&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Received <span class="subst">&#123;message!r&#125;</span> from <span class="subst">&#123;addr!r&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 模拟较长时间的 I/O 操作</span></span><br><span class="line">    <span class="keyword">await</span> asyncio.sleep(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    response = <span class="string">f&quot;Hello, <span class="subst">&#123;message&#125;</span>!&quot;</span></span><br><span class="line">    writer.write(response.encode())</span><br><span class="line">    <span class="keyword">await</span> writer.drain()</span><br><span class="line">    writer.close()</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    <span class="string">&quot;&quot;&quot;启动服务器&quot;&quot;&quot;</span></span><br><span class="line">    server = <span class="keyword">await</span> asyncio.start_server(</span><br><span class="line">        handle_request, <span class="string">&#x27;localhost&#x27;</span>, <span class="number">8080</span>)</span><br><span class="line">    addr = server.sockets[<span class="number">0</span>].getsockname()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;Serving on <span class="subst">&#123;addr&#125;</span>&#x27;</span>)</span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">with</span> server:</span><br><span class="line">        <span class="keyword">await</span> server.serve_forever()</span><br><span class="line"></span><br><span class="line">asyncio.run(main())</span><br></pre></td></tr></table></figure>
+
+<p>该示例代码实现了一个简单的异步 Web 服务器。在 handle_request 函数中，我们先通过 await reader.read(1024) 从客户端读取数据，然后使用 await asyncio.sleep(1) 模拟了一个长时间的 I&#x2F;O 操作（1 秒钟），最后通过 writer 写入响应数据，并运行 await writer.drain() 将数据异步地发送到客户端。在 main 函数中，我们通过 await asyncio.start_server 启动了服务器，并调用 await server.serve_forever() 不断监听客户端的连接，从而实现了异步处理多个请求的功能。</p>
+<p>当我们向该服务器发送多个请求时，可以看到服务器会同时接收多个请求并异步地处理它们，而不会阻塞其他请求：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt; telnet localhost 8080</span><br><span class="line">Trying 127.0.0.1...</span><br><span class="line">Connected to localhost.</span><br><span class="line">Escape character is &#x27;^]&#x27;.</span><br><span class="line">Hello, World!</span><br><span class="line">Hello, World!Hello, World!</span><br><span class="line">Connection closed by foreign host.</span><br></pre></td></tr></table></figure>
+
+<p>总之，使用 asyncio 实现异步编程可以轻松地实现高效的并发处理，提高服务器的性能和响应速度。</p>
+<h3 id="需求-2"><a href="#需求-2" class="headerlink" title="需求 2"></a>需求 2</h3><h4 id="需求描述-1"><a href="#需求描述-1" class="headerlink" title="需求描述"></a>需求描述</h4><p>假设公司的数据中心需要下载非常大的数据集，但下载速度受到带宽和网络等因素的限制，下载一个数据集可能需要数小时甚至数天的时间。而数据中心需要同时下载多个数据集，因此需要一个可以同时下载多个文件的多任务下载工具。</p>
+<h4 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a>解决方案</h4><p>使用异步 IO 技术可以达到高效的下载效果，因为在下载一个数据集的过程中，可以同时启动并发的下载任务，遇到 IO 阻塞时，自动切换到其他任务，从而实现了不阻塞其他任务的目的。</p>
+<p>实现思路如下：</p>
+<ol>
+<li>创建一个任务队列，用于存放需要下载的文件列表。</li>
+<li>创建一个下载任务的协程，从队列中获取要下载的文件，使用 aiohttp 库中的 <code>aiohttp.ClientSession</code> 类发送异步的 GET 请求下载文件，并保存到本地的文件中。</li>
+<li>创建多个下载任务的协程，使用 <code>asyncio.gather</code> 函数并发执行多个下载任务。</li>
+<li>为了避免下载时 IO 阻塞，使用异步 IO 技术，将每个下载操作封装为一个协程，使用异步 IO 库 asyncio 进行并发控制。</li>
+</ol>
+<p>下面是该场景的代码示例：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">import</span> aiohttp</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载任务协程</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">download_file</span>(<span class="params">url: <span class="built_in">str</span>, file_name: <span class="built_in">str</span></span>):</span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">with</span> aiohttp.ClientSession() <span class="keyword">as</span> session:</span><br><span class="line">        <span class="keyword">async</span> <span class="keyword">with</span> session.get(url) <span class="keyword">as</span> response:</span><br><span class="line">            <span class="keyword">with</span> <span class="built_in">open</span>(file_name, <span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">                <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">                    chunk = <span class="keyword">await</span> response.content.read(<span class="number">1024</span>)</span><br><span class="line">                    <span class="keyword">if</span> <span class="keyword">not</span> chunk:</span><br><span class="line">                        <span class="keyword">break</span></span><br><span class="line">                    f.write(chunk)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 多任务下载函数</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">multi_download</span>(<span class="params">urls: <span class="built_in">list</span>, dir_path: <span class="built_in">str</span></span>):</span><br><span class="line">    tasks = []</span><br><span class="line">    <span class="keyword">for</span> url <span class="keyword">in</span> urls:</span><br><span class="line">        file_name = url.split(<span class="string">&#x27;/&#x27;</span>)[-<span class="number">1</span>]</span><br><span class="line">        file_path = dir_path + file_name</span><br><span class="line">        task = asyncio.create_task(download_file(url, file_path))</span><br><span class="line">        tasks.append(task)</span><br><span class="line">    <span class="keyword">await</span> asyncio.gather(*tasks)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试代码</span></span><br><span class="line">urls = [</span><br><span class="line">    <span class="string">&#x27;https://www.example.com/file1.zip&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;https://www.example.com/file2.zip&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;https://www.example.com/file3.zip&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;https://www.example.com/file4.zip&#x27;</span>,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">dir_path = <span class="string">&#x27;/tmp/downloads/&#x27;</span></span><br><span class="line"></span><br><span class="line">asyncio.run(multi_download(urls, dir_path))</span><br></pre></td></tr></table></figure>
+
+<p>在上面的示例中，我们使用 async&#x2F;await 语法定义了两个协程函数：download_file 和 multi_download，其中 download_file 用于下载单个文件，multi_download 用于同时下载多个文件。在 multi_download 中我们使用 asyncio.gather 函数并发执行多个下载任务。在下载任务中，我们使用 aiohttp 库来发送 HTTP 请求，并使用异步 IO 技术来避免 IO 阻塞。</p>
+<h3 id="需求-3"><a href="#需求-3" class="headerlink" title="需求 3"></a>需求 3</h3><h4 id="需求描述-2"><a href="#需求描述-2" class="headerlink" title="需求描述"></a>需求描述</h4><p>当前需要开发一款爬虫系统，这个系统需要能够实时获取多个网站的数据，并且需要进行数据清洗和处理，以便进行数据挖掘和分析。由于数据量比较大，因此系统需要具备高并发和高性能的特点，能够快速响应市场变化，并且能够及时地进行数据清洗和处理。</p>
+<p>可以使用异步编程框架，如Asyncio和Tornado等，来实现该爬虫需求。通过异步框架，需要编写高效的异步爬虫程序，同时还可以利用该框架提供的协程和异步IO等功能，提升系统性能，并更好地应对高并发和高性能的要求。</p>
+<h4 id="解决方案-2"><a href="#解决方案-2" class="headerlink" title="解决方案"></a>解决方案</h4><p>1.选择异步编程框架：选择一个适合您项目的异步编程框架，这里我们以Asyncio作为框架示例。Asyncio是一个基于协程的异步框架，可以很好地应对高并发的需求。</p>
+<p>2.使用异步HTTP库：从多个网站获取数据需要使用异步HTTP库，而对于Asyncio来说，aiohttp 库是一个不错的选择，它提供了异步 HTTP 客户端和服务器的支持。</p>
+<p>3.数据清洗和处理：获取到数据后进行数据清洗和处理，以便进行下一步的分析。使用Python数据处理库如Pandas、NumPy、SciPy来处理数据。</p>
+<p>4.部署到生产环境：将开发的爬虫系统部署到生产环境中，可以使用Docker或Kubernetes等容器化技术进行部署。</p>
+<p>5.性能优化：优化系统性能和响应速度，可以使用多线程、多进程、Redis等技术来进行优化。</p>
+<p>6.监控和日志：监控和记录系统的运行状况和日志，可以使用钉钉、ELK等工具来进行监控和日志管理。</p>
+]]></content>
+      <categories>
+        <category>异步</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
 </search>
