@@ -997,4 +997,51 @@
         <tag>系统bug</tag>
       </tags>
   </entry>
+  <entry>
+    <title>某某查App 请求头Authorization 逆向</title>
+    <url>/2023/07/16/%E6%9F%90%E6%9F%90%E6%9F%A5App-%E8%AF%B7%E6%B1%82%E5%A4%B4Authorization-%E9%80%86%E5%90%91/</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer"/>
+# 某某查App 请求头Authorization 逆向
+
+<h2 id="抓包"><a href="#抓包" class="headerlink" title="抓包"></a>抓包</h2><p>data参数如图，没什么好说的 手机号和密码的 Md5<br><img src="https://p.ipic.vip/xh745k.png" alt="image-20230621175205861"></p>
+<p>请求头参数如下：</p>
+<p><img src="https://p.ipic.vip/f22xw0.png" alt="image-20230621175124521"></p>
+<p>看到这么多参数我眼都花了，经过一个个参数删减（拦截修改请求）测试，最终需要逆向的参数只有<strong>Authorization</strong></p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>既然要分析参数那肯定要对 app 进行一些 hook，看看这个参数是从哪来的，怎么生成的</p>
+<p>遇到这种情况可以直接用Java 层常见加密通杀方案过一遍，说不定就直接解决了</p>
+<p>结果当然是没有解决，不然我也没必要写了</p>
+<p>下面开始正常流程分析</p>
+<h3 id="1-脱壳拿到源码"><a href="#1-脱壳拿到源码" class="headerlink" title="1. 脱壳拿到源码"></a>1. 脱壳拿到源码</h3><p>先看是什么加固方式</p>
+<p><img src="https://p.ipic.vip/6zh72i.png" alt="image-20230716192234483"></p>
+<p>爱加密加固，直接脱壳即可，过程不在详细说</p>
+<h3 id="2-静态分析"><a href="#2-静态分析" class="headerlink" title="2. 静态分析"></a>2. 静态分析</h3><p>直接搜索Authorization</p>
+<p><img src="https://p.ipic.vip/8cnifa.png" alt="image-20230716192730751"></p>
+<p><img src="https://p.ipic.vip/lmwdq5.png" alt="image-20230716192752597"></p>
+<p>我们直接进入 a0函数</p>
+<p><img src="https://p.ipic.vip/bazfml.png" alt="image-20230716192819424"></p>
+<p>使用 Frida Hook b0的两个入参</p>
+<p>得到如下结果：</p>
+<p>第一个参数：imei-not-exist</p>
+<p>第二个参数：1686888384131 （时间戳）</p>
+<p>进入 b0 函数</p>
+<p><img src="https://p.ipic.vip/3z4ivj.png" alt="image-20230716193116362"></p>
+<p>实际上是把一个字符串经过自写加密函数，得到最终的Authorization</p>
+<p>进入JMEncryptBoxByRandom.encryptToBase64看看到底是什么</p>
+<p><img src="https://p.ipic.vip/w8ao6g.png" alt="image-20230716193515988"></p>
+<p>嗯，就是把字符串转换为字节数组然后经过一个encryptByRandomType2函数，随机打乱 字节数组，然后再 base64 即可</p>
+<p>注意看这个encryptByRandomType2</p>
+<p><img src="https://p.ipic.vip/812pm5.png" alt="image-20230716193557977"></p>
+<p>native类型 说明加密逻辑在 So 层。</p>
+<p>就不去 so 层看了，太麻烦，我们直接 hook最开始的 a0 函数即可</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">getAuthorization</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 执行 a0 得到结果</span></span><br><span class="line">    <span class="keyword">var</span> <span class="variable constant_">G3</span> = <span class="title class_">Java</span>.<span class="title function_">use</span>(<span class="string">&#x27;com.tianyancha.base.utils.g3&#x27;</span>);</span><br><span class="line">    <span class="keyword">var</span> res = <span class="variable constant_">G3</span>.<span class="title function_">a0</span>();</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;a0 的结果是 : &#x27;</span> + res);</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">rpc.<span class="property">exports</span> = &#123;</span><br><span class="line">    <span class="attr">getauthorization</span>: getAuthorization</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>大功告成。</p>
+]]></content>
+      <categories>
+        <category>逆向</category>
+      </categories>
+      <tags>
+        <tag>Android 逆向</tag>
+      </tags>
+  </entry>
 </search>
