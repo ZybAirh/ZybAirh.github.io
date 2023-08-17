@@ -6,7 +6,7 @@
   <link href="http://qwd.ai/atom.xml" rel="self"/>
   
   <link href="http://qwd.ai/"/>
-  <updated>2023-07-19T12:13:59.000Z</updated>
+  <updated>2023-08-17T16:53:44.000Z</updated>
   <id>http://qwd.ai/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Linux 下Clash 科学上网</title>
+    <link href="http://qwd.ai/2023/08/18/Linux-%E4%B8%8BClash-%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/"/>
+    <id>http://qwd.ai/2023/08/18/Linux-%E4%B8%8BClash-%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/</id>
+    <published>2023-08-17T16:53:44.000Z</published>
+    <updated>2023-08-17T16:53:44.000Z</updated>
+    
+    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"/># Linux 科学上网<h2 id="下载Clash"><a href="#下载Clash" class="headerlink" title="下载Clash"></a>下载Clash</h2><p><a href="https://github.com/Dreamacro/clash/releases/download/v1.18.0/clash-linux-amd64-v3-v1.18.0.gz">下载地址</a></p><p>复制到Linux 随意目录下 解压出来</p><p>然后chmod +x .&#x2F;clash-linux-amd64</p><h2 id="编辑文件"><a href="#编辑文件" class="headerlink" title="编辑文件"></a>编辑文件</h2><p>执行完上述步骤，会在&#x2F;root&#x2F;.config&#x2F;clash 自动生成配置文件</p><p>在机场注册购买流量后</p><p>复制V2Ray链接进入<a href="https://sub.789.st/">链接转换</a>选择基础模式转换即可</p><p>然后把转换后的链接下载下来</p><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -O /etc/clash/config.yaml [你的订阅链接]</span><br></pre></td></tr></table></figure><h2 id="启动Clash"><a href="#启动Clash" class="headerlink" title="启动Clash"></a>启动Clash</h2><p>我的个人习惯是开启一个tmux窗体</p><p>然后执行<code>./clash-linux-amd64 &amp;</code></p><h2 id="环境变量配置"><a href="#环境变量配置" class="headerlink" title="环境变量配置"></a>环境变量配置</h2><p><code>vim ~/.zshrc</code></p><p>最后一行添加</p><p><code>export ALL_PROXY=socks5://127.0.0.1:7891</code></p><p>保存退出</p><p><code>source ~/.zshrc</code></p><p>新开个终端，即可~</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;/&gt;
+# Linux 科学上网
+
+&lt;h2 id=&quot;下载Clash&quot;&gt;&lt;a href=&quot;#下载Clash&quot; class=&quot;headerlink&quot; title=&quot;下载Clash&quot;&gt;&lt;/a&gt;下载Cla</summary>
+      
+    
+    
+    
+    <category term="Linux" scheme="http://qwd.ai/categories/Linux/"/>
+    
+    
+    <category term="科学上网" scheme="http://qwd.ai/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/"/>
+    
+  </entry>
   
   <entry>
     <title>某查 Token Xposed+Sekiro 升级方案</title>
