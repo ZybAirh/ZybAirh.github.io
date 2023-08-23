@@ -1246,4 +1246,48 @@
         <tag>科学上网</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Mac Selenium 调试老版本Chrome</title>
+    <url>/2023/08/23/Mac-Selenium-%E8%B0%83%E8%AF%95%E8%80%81%E7%89%88%E6%9C%ACChrome/</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer"/>
+
+
+<p>今天需要用Selenium调试一个网页，发现Chrom版本太高了（116.0.5845.96），ChromeDriver跟不上版本了（最新114.0.5735.90），下面是解决方式。</p>
+<h2 id="下载老版本Chrome"><a href="#下载老版本Chrome" class="headerlink" title="下载老版本Chrome"></a>下载老版本Chrome</h2><p><a href="https://commondatastorage.googleapis.com/chromium-browser-snapshots/index.html?prefix=Mac_Arm/">最全的Chrome历史版本网址</a></p>
+<p>找到一个与ChromeDriver最新版本对应的Chrome版本下载</p>
+<p>下载完成解压</p>
+<p><img src="https://p.ipic.vip/6i860a.png" alt="image-20230823112019569"></p>
+<p>这个可以当做专门调试Selenium的Chrome（开发版）</p>
+<p>然后移动到一个不会被误删的位置，比如应用程序</p>
+<p>直接拖进去即可，然后就能在app调度中心看到它了</p>
+<p><img src="https://p.ipic.vip/ghwm23.png" alt="image-20230823112147896"></p>
+<h2 id="下载ChromeDriver"><a href="#下载ChromeDriver" class="headerlink" title="下载ChromeDriver"></a>下载ChromeDriver</h2><p><a href="https://chromedriver.storage.googleapis.com/index.html">下载地址</a></p>
+<p>下载最新版的即可</p>
+<p>下载完毕之后解压到跟Chromium可执行文件同级目录即可，因为我们后面要添加环境变量，就直接把它俩一起添加进去了！</p>
+<p>比如我这里的是&#x2F;Applications&#x2F;Chromium.app&#x2F;Contents&#x2F;MacOS</p>
+<p>那就挪到这个位置</p>
+<p><img src="https://p.ipic.vip/yth0tk.png" alt="image-20230823112526524"></p>
+<h2 id="添加环境变量"><a href="#添加环境变量" class="headerlink" title="添加环境变量"></a>添加环境变量</h2><p>我用的是zsh</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vim ~/.zshrc</span><br></pre></td></tr></table></figure>
+
+<p>添加到最后一行</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export PATH=&quot;/Applications/Chromium.app/Contents/MacOS:$PATH&quot;</span><br></pre></td></tr></table></figure>
+
+<p>最后执行</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">source ~/.zshrc</span><br></pre></td></tr></table></figure>
+
+<h2 id="Python调试"><a href="#Python调试" class="headerlink" title="Python调试"></a>Python调试</h2><p>调试之前，需要在终端打开一个Chromium</p>
+<p>执行</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Chromium --remote-debugging-port=19222 --user-data-dir=&quot;~/ChromeProfile&quot;</span><br></pre></td></tr></table></figure>
+
+<p>注意： 如果不添加到环境变量的话，该命令是无法执行成功的</p>
+<p>这个时候我们就可以通过19222端口来调试该浏览器了~</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line">options = webdriver.ChromeOptions()</span><br><span class="line">options.add_experimental_option(<span class="string">&quot;debuggerAddress&quot;</span>, <span class="string">&quot;127.0.0.1:19222&quot;</span>)</span><br><span class="line">driver = webdriver.Chrome(options=options)</span><br><span class="line">driver.get(<span class="string">&#x27;https://www.baidu.com&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>该方式可以把调试的Chrome和日常使用的Chrome独立开，而且Chrome版本可定制</p>
+]]></content>
+      <categories>
+        <category>调试</category>
+      </categories>
+  </entry>
 </search>
