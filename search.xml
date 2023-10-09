@@ -1290,4 +1290,60 @@
         <category>调试</category>
       </categories>
   </entry>
+  <entry>
+    <title>Ububtu挂载新磁盘</title>
+    <url>/2023/10/09/Ububtu%E6%8C%82%E8%BD%BD%E6%96%B0%E7%A3%81%E7%9B%98/</url>
+    <content><![CDATA[<p>为Ubuntu系统安装一个新的磁盘涉及到以下几个步骤：</p>
+<ol>
+<li><p><strong>物理安装</strong>：首先，确保已经将新的磁盘物理安装到了计算机中。这通常涉及到打开计算机的外壳，找到一个空的SATA端口（或其他相应的端口，取决于磁盘类型），然后连接数据线和电源线。</p>
+</li>
+<li><p><strong>检测新磁盘</strong>：安装好后，开机进入Ubuntu系统，打开终端，输入以下命令来查看新磁盘是否被系统检测到：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo fdisk -l</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>分区与格式化</strong>：</p>
+<ul>
+<li><p>使用<code>fdisk</code>或<code>parted</code>工具进行分区。例如，如果新磁盘为<code>/dev/sdb</code>，可以使用<code>sudo fdisk /dev/sdb</code>来为它创建新的分区。</p>
+<p>之后，进入<code>fdisk</code>的交互模式：</p>
+<p>如果磁盘大于2T:</p>
+<ul>
+<li>输入 <code>g</code> 并回车，创建一个新的GPT分区表（由于磁盘大于2TB，建议使用GPT）。</li>
+</ul>
+<p>否则跳过上述步骤：</p>
+<ul>
+<li>输入 <code>n</code> 并回车，开始创建新分区。对于提示，您可以接受默认值以使用整个磁盘容量，或自定义分区大小。</li>
+<li>输入 <code>w</code> 并回车，保存更改并退出。</li>
+</ul>
+</li>
+<li><p>分区完成后，需要为新分区创建文件系统。例如，如果创建了一个新分区<code>/dev/sdb1</code>，并希望格式化为<code>ext4</code>格式，可以使用以下命令：</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo mkfs.ext4 /dev/sdb1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>挂载新磁盘</strong>：</p>
+<ul>
+<li>首先创建一个挂载点，例如 <code>/mnt/newdisk</code>：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo mkdir /mnt/newdisk</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后挂载新的分区到该挂载点：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo mount /dev/sdb1 /mnt/newdisk</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>自动挂载</strong>：如果希望每次启动系统时自动挂载新磁盘，需要编辑<code>/etc/fstab</code>文件。但在此之前，建议先使用<code>blkid</code>命令获取新分区的UUID：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo blkid</span><br></pre></td></tr></table></figure>
+
+<p>记录下<code>/dev/sdb1</code>（或您的新分区）的UUID，然后编辑<code>/etc/fstab</code>，在文件末尾添加一行类似：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">UUID=YOUR_UUID /mnt/newdisk ext4 defaults 0 2</span><br></pre></td></tr></table></figure>
+
+<p>请将<code>YOUR_UUID</code>替换为实际的UUID。</p>
+</li>
+<li><p><strong>完成并测试</strong>：重新启动计算机，确保新磁盘可以自动挂载，并且可以正常访问它。</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Ubuntu</category>
+      </categories>
+  </entry>
 </search>
