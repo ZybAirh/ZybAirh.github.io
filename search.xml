@@ -1346,4 +1346,123 @@
         <category>Ubuntu</category>
       </categories>
   </entry>
+  <entry>
+    <title>一次踩坑的IOS逆向</title>
+    <url>/2023/10/10/%E4%B8%80%E6%AC%A1%E8%B8%A9%E5%9D%91%E7%9A%84IOS%E9%80%86%E5%90%91/</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer"/>
+
+<p>一个比较有意思的app，在数据抓取的时候发现： ios端的app未登录的用户有几十次免费查看数据的机会，而安卓app强制登录才能查看信息。</p>
+<p>让我想到有没有一种办法可以模拟无限个新用户，那就不需要注册即可采集了。</p>
+<p>说干就干</p>
+<h2 id="抓包"><a href="#抓包" class="headerlink" title="抓包"></a>抓包</h2><p>一开始我以为ios端跟安卓端一样可以快乐的抓包，后来发现ios端的是真的难抓，我就怀疑是不是ios手机没有越狱</p>
+<p>注： 以下都是基于Charles证书安装好的情况下</p>
+<h3 id="ios越狱"><a href="#ios越狱" class="headerlink" title="ios越狱"></a>ios越狱</h3><p>不舍得让我的14pm 越狱，所以直接去tb买了台备用越狱机子，如果有老机子我肯定自己动手越狱，其实难度不大，i4tools有一键越狱。</p>
+<h3 id="安装Filza"><a href="#安装Filza" class="headerlink" title="安装Filza"></a>安装Filza</h3><p>在Cydia里 【软件源】——【编辑】——【添加】——【输入apt.abcydia.com】</p>
+<p>添加完成后，在 Cydia 的搜索栏中输入「Filza」进行下载。</p>
+<h3 id="安装SSL-Kill-Switch2"><a href="#安装SSL-Kill-Switch2" class="headerlink" title="安装SSL Kill Switch2"></a>安装SSL Kill Switch2</h3><p>借助插件 SSL Kill Switch 2 可以突破 SSL 双向认证，下载地址：<a href="https://github.com/nabla-c0d3/ssl-kill-switch2%E3%80%82">https://github.com/nabla-c0d3/ssl-kill-switch2。</a></p>
+<p>下载完成后通过sftp将安装包传入手机，使用Filza安装deb文件</p>
+<p>然后在设置里开启SSL Kill Switch2，再次尝试抓包</p>
+<h2 id="再次尝试抓包"><a href="#再次尝试抓包" class="headerlink" title="再次尝试抓包"></a>再次尝试抓包</h2><p>上述步骤设置完，还是抓不到，而且只要一抓包就会无法联网。</p>
+<p>看来不能用常规手段解决这个问题。</p>
+<p>那就试一下号称什么包都能抓到的r0capture能不能解决问题</p>
+<h3 id="安装frida"><a href="#安装frida" class="headerlink" title="安装frida"></a>安装frida</h3><p>在Cydia里 【软件源】——【编辑】——【添加】——【输入build.frida.re】</p>
+<p>添加完成后，在 Cydia 的搜索栏中输入「frida」进行下载。</p>
+<h3 id="r0capture"><a href="#r0capture" class="headerlink" title="r0capture"></a>r0capture</h3><p>下载地址：<a href="https://github.com/r0ysue/r0capture">https://github.com/r0ysue/r0capture</a></p>
+<p>配置方式： <a href="https://github.com/r0ysue/AndroidSecurityStudy/blob/master/FRIDA/A01/README.md">https://github.com/r0ysue/AndroidSecurityStudy/blob/master/FRIDA/A01/README.md</a></p>
+<p>配置完成后，命令行输入<code>python3 r0capture.py -U -f 包名 -v</code></p>
+<p>随着屏幕跳出目标app, 它顺利的展示了数据（不存在无法联网的情况）</p>
+<p>然后终端陆陆续续的展示出https包解密后的数据…..（r0牛！）</p>
+<h2 id="定位参数"><a href="#定位参数" class="headerlink" title="定位参数"></a>定位参数</h2><p>抓到包之后发现果然ios跟安卓的请求头是不一的（估计是俩外包团队开发的）</p>
+<p>发现有两个字段： <code>authCode</code> <code>authCodeEncrypt</code></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">authCode: *****-1A44E742-99BB-4B8A-972E-7F2A53D4D02A..Accept: */*..authCodeEncrypt: 2e940536fb12e372a8b413a7755760a5</span><br></pre></td></tr></table></figure>
+
+<p>现在就是搞定这俩字段，模拟生成即可</p>
+<h2 id="获取ipa包"><a href="#获取ipa包" class="headerlink" title="获取ipa包"></a>获取ipa包</h2><p>安卓里的是apk安装包，ios里的是ipa包，可以通过App Store获取（几乎都是加密带壳的），或者第三方渠道（基本没壳）</p>
+<p>之前我们可以通过iTunes来提取商店的ipa文件, 但12.+版本以后这个功能就被拿掉了</p>
+<p>目前可以借用Apple Configurator 工具来实现 </p>
+<p>安装:</p>
+<p>可以直接在App Store搜索安装</p>
+<p><img src="https://p.ipic.vip/dzv155.png" alt="image-20231009160159833"></p>
+<p>手机和电脑通过数据线连接，打开app，可以看到自己的手机了</p>
+<p><img src="https://p.ipic.vip/7wm4jw.png" alt="image-20231009160311866"></p>
+<p><img src="https://p.ipic.vip/0vm0ec.png" alt="image-20231009160505635"></p>
+<p>在弹出的搜索框中输入想要提取的app名称</p>
+<p>保持等待, 下载完后会提示是否替换,  这个时候注意不要做任何操作</p>
+<p>右键点击Finder选择前往文件夹, 输入:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">~/Library/Group Containers/K36BKF7T3D.group.com.apple.configurator/Library/Caches/Assets/TemporaryItems/MobileApps/</span><br></pre></td></tr></table></figure>
+
+<p>进入文件的最深层路径, 可以找到该App的ipa包（注意这里是加壳的！）</p>
+<h2 id="砸壳"><a href="#砸壳" class="headerlink" title="砸壳"></a>砸壳</h2><p>iOS中的app，发布渠道一般都是<code>App Store</code>。</p>
+<p>从<code>App Store</code>下载的APP全都是经过苹果加密过的<code>ipa</code>包。</p>
+<p>而Apple会为了安全，给app加密(使用Apple ID相关的对称加密算法)，这个过程俗称为：<code>加壳</code>，就像给app外部上加了一层壳</p>
+<p><img src="https://p.ipic.vip/34250n.png" alt="image-20231010222613103"></p>
+<p>而加密后的<code>ipa</code>包，是无法继续后续的逆向过程的</p>
+<ul>
+<li>后续的典型的逆向过程是<ul>
+<li>用<code>IDA</code>&#x2F;<code>Hooper</code>等去<code>反编译</code></li>
+<li>用class-dump等去导出头文件</li>
+<li>class-dump直接去导出，未砸壳的App Store上的二进制的话只能导出<code>CDStructures.h</code>这个空的头文件，无法得到想要的各种类的头文件</li>
+<li>对砸壳后的ipa，去用<code>MonkeyDev</code>动态调试</li>
+</ul>
+</li>
+</ul>
+<p>很多网站可以免费砸壳，或者收费很少。</p>
+<p>咱自己动手丰衣足食，Cydia下载一个CrackerXL+，无脑砸壳</p>
+<p>具体不再说了，很简单的操作，参考这篇文章<a href="https://www.jianshu.com/p/d1712e515432">https://www.jianshu.com/p/d1712e515432</a></p>
+<p>砸壳完成后会给到.ipa文件</p>
+<p>只需要改成.zip然后解压就能看到app了</p>
+<p>右键app——显示包内容</p>
+<p>然后在该文件夹进入终端</p>
+<p>输入 <code>otool -l 应用名  | grep crypt </code></p>
+<p>出现<code>cryptid 0</code>就是砸壳成功了</p>
+<p><img src="https://p.ipic.vip/lwj6if.png" alt="image-20231010223119598"></p>
+<h2 id="导出-h头文件"><a href="#导出-h头文件" class="headerlink" title="导出.h头文件"></a>导出.h头文件</h2><p>首先下载class-dump、添加到环境变量</p>
+<p>亲身尝试安装官网版本会报错</p>
+<p><code>Cannot find offset for address xxx in stringAtAddress:</code></p>
+<p>推荐下载大佬改造版本</p>
+<p><a href="https://github.com/AloneMonkey/MonkeyDev/blob/master/bin/class-dump">https://github.com/AloneMonkey/MonkeyDev/blob/master/bin/class-dump</a></p>
+<p>输入<code>class-dump -H qitongcha -o ./headers/ </code></p>
+<p>看到一对日志输出，全是什么failed，我晕</p>
+<p><img src="/Users/zhangyubo/Library/Application%20Support/typora-user-images/image-20231010225942873.png" alt="image-20231010225942873"></p>
+<p>但是headers文件夹确实出现了很多.h文件</p>
+<p><img src="https://p.ipic.vip/pg0wlh.png" alt="image-20231010230020515"></p>
+<p>遇事不决直接百度：<a href="https://iosre.com/t/class-dump%E8%A7%A3%E6%9E%90%E6%96%B9%E6%B3%95%E7%B1%BB%E5%9E%8B%E5%A4%B1%E8%B4%A5/10067/6">参考这里</a></p>
+<p>那就是有文件缺失喽，在.h头文件里全局搜索关键字，也是没有找到。。这条线直接断了</p>
+<h2 id="Hopper分析二进制文件"><a href="#Hopper分析二进制文件" class="headerlink" title="Hopper分析二进制文件"></a>Hopper分析二进制文件</h2><p>转头一想，既然已经有可执行文件了，那我直接分析二进制不得了。</p>
+<p>打开hopper,二进制文件直接拖进去，点OK</p>
+<p><img src="https://p.ipic.vip/83ohk6.png" alt="image-20231010230355125"></p>
+<p>点左侧搜索栏进行搜索</p>
+<p><img src="https://p.ipic.vip/j00grz.png" alt="image-20231010230511992"></p>
+<p>果然找到了！</p>
+<p><img src="https://p.ipic.vip/emm9p0.png" alt="image-20231010230548186"></p>
+<p>找到相关代码位置</p>
+<p><img src="https://p.ipic.vip/g7x4nl.png" alt="image-20231010230645054"></p>
+<p>点击这里查看伪代码</p>
+<p><img src="https://p.ipic.vip/6gc7vk.png" alt="image-20231010230721308"></p>
+<p><img src="https://p.ipic.vip/p2ejev.png" alt="image-20231010230741431"></p>
+<p>接下来就是看伪代码，因为不太懂怎么动态调试的，所以只能静态分析</p>
+<p>经过漫长的分析，最终得出结论</p>
+<p><code>authCode</code>是一个UUID</p>
+<p><img src="https://p.ipic.vip/znxbcp.png" alt="image-20231010231016923"></p>
+<p>而<code>authCodeEncrypt</code>是一个md5有关的一个加密后的字段。</p>
+<p>呃。既然不能直接动态调试，那我直接用frida Hook下所有的md5不就可以了吗</p>
+<h2 id="Frida-Trace"><a href="#Frida-Trace" class="headerlink" title="Frida-Trace"></a>Frida-Trace</h2><p>上面已经安装好了Frida,这里不再赘述</p>
+<p>先定位到进程的pid</p>
+<p>然后直接输入</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">frida-trace -U -i &quot;CC_MD5&quot; 8701</span><br></pre></td></tr></table></figure>
+
+<p>这时候会生成一个文件夹<code>__handlers__</code></p>
+<p>找到里面的CC_MD5.js</p>
+<p>写入：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="title function_">onEnter</span>(<span class="params">log, args, state</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">args0</span> = args[<span class="number">0</span>];	<span class="comment">// 入参</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">args2</span> = args[<span class="number">2</span>];	<span class="comment">// 返回值指针</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="title function_">onLeave</span>(<span class="params">log, retval, state</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> <span class="title class_">ByteArray</span> = <span class="title class_">Memory</span>.<span class="title function_">readByteArray</span>(<span class="variable language_">this</span>.<span class="property">args2</span>, <span class="number">16</span>);</span><br><span class="line">    <span class="keyword">var</span> uint8Array = <span class="keyword">new</span> <span class="title class_">Uint8Array</span>(<span class="title class_">ByteArray</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> str = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; uint8Array.<span class="property">length</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">var</span> hextemp = (uint8Array[i].<span class="title function_">toString</span>(<span class="number">16</span>))</span><br><span class="line">        <span class="keyword">if</span>(hextemp.<span class="property">length</span> == <span class="number">1</span>)&#123;</span><br><span class="line">            hextemp = <span class="string">&quot;0&quot;</span> + hextemp</span><br><span class="line">        &#125;</span><br><span class="line">        str += hextemp;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">log</span>(<span class="string">`CC_MD5(<span class="subst">$&#123;<span class="variable language_">this</span>.args0.readUtf8String()&#125;</span>)`</span>);   	<span class="comment">// 入参</span></span><br><span class="line">    <span class="title function_">log</span>(<span class="string">`CC_MD5()=<span class="subst">$&#123;str&#125;</span>=`</span>);													<span class="comment">// 返回值</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后再次输入trace命令</p>
+<p>出值，完事！</p>
+<p>加密逻辑为：authCodeEncrypt&#x3D;md5(前缀+authCode+盐)</p>
+<p><img src="https://p.ipic.vip/hxsf4m.png" alt="image-20231010231727574"></p>
+]]></content>
+      <categories>
+        <category>IOS逆向</category>
+      </categories>
+  </entry>
 </search>
