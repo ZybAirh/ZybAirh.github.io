@@ -1708,7 +1708,7 @@
   <entry>
     <title>瑞数安全（4、5、6、vmp版本）方案(2)</title>
     <url>/2023/10/28/%E7%91%9E%E6%95%B0%E5%AE%89%E5%85%A8%EF%BC%884%E3%80%815%E3%80%816%E3%80%81vmp%E7%89%88%E6%9C%AC%EF%BC%89%E6%96%B9%E6%A1%88-2/</url>
-    <content><![CDATA[<h1 id="瑞数安全（4、5、6、vmp版本）方案-2"><a href="#瑞数安全（4、5、6、vmp版本）方案-2" class="headerlink" title="瑞数安全（4、5、6、vmp版本）方案 (2)"></a>瑞数安全（4、5、6、vmp版本）方案 (2)</h1><p>提前说一句： 所有版本均可rpc通杀，一键注入、高并发采集；但是吃机器性能、不太方便，不过是一个很好的临时方案。</p>
+    <content><![CDATA[<p>提前说一句： 所有版本均可rpc通杀，一键注入、高并发采集；但是吃机器性能、不太方便，不过是一个很好的临时方案。</p>
 <p>这里主要说明补环境方案</p>
 <h2 id="Rs5"><a href="#Rs5" class="headerlink" title="Rs5"></a>Rs5</h2><p>网址 : <code>aHR0cHM6Ly9iaWRkaW5nLnN5c3UuZWR1LmNuL2luZm9ybWF0aW9uL25vdGljZQ==</code></p>
 <h3 id="Rs5-Cookie分析"><a href="#Rs5-Cookie分析" class="headerlink" title="Rs5 Cookie分析"></a>Rs5 Cookie分析</h3><p><code>ZMRhjlxmTSDe443S</code>: 第一次请求返回。</p>
@@ -1720,7 +1720,7 @@
 
 <p>返回状态码是<strong>412</strong></p>
 <p>返回的文本如下</p>
-<p><img src="/Users/zhangyubo/Library/Application%20Support/typora-user-images/image-20231028172417957.png" alt="image-20231028172417957"></p>
+<p><img src="https://p.ipic.vip/38auvh.png" alt="image-20231028172417957"></p>
 <p>我们提取出 <code>content</code>,<code>auto_js</code>,<code>ts_url</code></p>
 <figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 匹配出content</span></span><br><span class="line">content = re.findall(<span class="string">&#x27;&lt;meta content=&quot;(.*?)&quot;&#x27;</span>, Str)[<span class="number">0</span>] <span class="comment"># content</span></span><br><span class="line">auto_js = re.findall(<span class="string">&#x27;r=&quot;m&quot;&gt;(\(function\(\).*?)&lt;/script&gt;&#x27;</span>, Str,re.S|re.I)[<span class="number">0</span>] <span class="comment"># 自执行函数</span></span><br><span class="line">ts_url = re.findall(<span class="string">&#x27;src=&quot;(.*?js)&quot; r=&#x27;</span>,Str,re.S|re.I)[<span class="number">0</span>] <span class="comment"># js文件</span></span><br><span class="line">ts_url = <span class="string">f&#x27;https://bidding.sysu.edu.cn<span class="subst">&#123;ts_url&#125;</span>&#x27;</span></span><br><span class="line">logger.debug(<span class="string">f&#x27;ts_url:<span class="subst">&#123;ts_url&#125;</span>&#x27;</span>)</span><br></pre></td></tr></table></figure>
 
