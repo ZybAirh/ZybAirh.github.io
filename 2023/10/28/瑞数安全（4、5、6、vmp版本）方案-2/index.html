@@ -183,7 +183,7 @@ document.addEventListener('pjax:send', () => {
 <p>返回状态码是<strong>412</strong></p>
 <p>返回的文本如下</p>
 <p><img src="https://p.ipic.vip/38auvh.png" alt="image-20231028172417957"></p>
-<p>我们提取出 <code>content</code>,<code>auto_js</code>,<code>ts_url</code></p>
+<p>我们提取出 <code>content</code>,<code>auto_js</code>,<code>ts_url</code> </p>
 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 匹配出content</span></span><br><span class="line">content = re.findall(<span class="string">&#x27;&lt;meta content=&quot;(.*?)&quot;&#x27;</span>, Str)[<span class="number">0</span>] <span class="comment"># content</span></span><br><span class="line">auto_js = re.findall(<span class="string">&#x27;r=&quot;m&quot;&gt;(\(function\(\).*?)&lt;/script&gt;&#x27;</span>, Str,re.S|re.I)[<span class="number">0</span>] <span class="comment"># 自执行函数</span></span><br><span class="line">ts_url = re.findall(<span class="string">&#x27;src=&quot;(.*?js)&quot; r=&#x27;</span>,Str,re.S|re.I)[<span class="number">0</span>] <span class="comment"># js文件</span></span><br><span class="line">ts_url = <span class="string">f&#x27;https://bidding.sysu.edu.cn<span class="subst">&#123;ts_url&#125;</span>&#x27;</span></span><br><span class="line">logger.debug(<span class="string">f&#x27;ts_url:<span class="subst">&#123;ts_url&#125;</span>&#x27;</span>)</span><br></pre></td></tr></table></figure>
 
 <p>下一步就是结合这三个条件，生成我们要的<code>ZMRhjlxmTSDe443T</code>打出第二次请求</p>
